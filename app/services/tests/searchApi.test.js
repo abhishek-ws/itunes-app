@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import { getApiClient } from '@utils/apiUtils';
-import { getSearches } from '../repoApi';
+import { getSearches } from '../searchApi';
 import { searchResults } from './searchTestResult';
 
 describe('Search Itunes Api tests', () => {
