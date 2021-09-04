@@ -29,8 +29,8 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+        # - name: SonarCloud Scan
+        # uses: sonarsource/sonarcloud-github-action@master
         with:
           args: >
             -Dsonar.organization=${{ secrets.SONAR_ORG}}
