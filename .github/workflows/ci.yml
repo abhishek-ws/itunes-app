@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: React Template CI
 on:
   pull_request:
