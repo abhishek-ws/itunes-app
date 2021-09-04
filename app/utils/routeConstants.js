@@ -1,5 +1,5 @@
 export default {
-  repos: {
+  itunes: {
     route: '/',
     props: {
       maxwidth: 500,

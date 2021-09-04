@@ -1,4 +1,10 @@
-import { selectSearchesError, selectGridData, selectSearchTerm, selectItunesContainerDomain } from '../selectors';
+import {
+  selectSearchesError,
+  selectGridData,
+  selectSearchTerm,
+  selectItunesContainer,
+  selectItunesContainerDomain
+} from '../selectors';
 
 describe('ItunesContainer selector tests', () => {
   let mockedState;
@@ -20,8 +26,13 @@ describe('ItunesContainer selector tests', () => {
     };
   });
 
-  it('should select the user state', () => {
+  it('should return state', () => {
     expect(selectItunesContainerDomain(mockedState)).toEqual(mockedState.itunesContainer);
+  });
+
+  it('should select the user state', () => {
+    const itunesContainerSelector = selectItunesContainer();
+    expect(itunesContainerSelector(mockedState)).toEqual(mockedState.itunesContainer);
   });
 
   it('should select the searchTerm', () => {
