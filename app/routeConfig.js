@@ -4,7 +4,7 @@ import routeConstants from '@utils/routeConstants';
 export const routeConfig = {
   itunes: {
     component: ItunesContainer,
-    ...routeConstants.repos
+    ...routeConstants.itunes
   },
   notFoundPage: {
     component: NotFound,
