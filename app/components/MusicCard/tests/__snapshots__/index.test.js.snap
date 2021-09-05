@@ -4,7 +4,7 @@ exports[`<MusicCard /> should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered MusicCard__Container-sc-1l6p3fn-0 hqzDUi"
+      class="ant-card ant-card-bordered MusicCard__Container-sc-1l6p3fn-0 hgfVdY"
       data-testid="music-card"
     >
       <div
@@ -12,12 +12,12 @@ exports[`<MusicCard /> should render and match the snapshot 1`] = `
       >
         <div
           class="ant-image"
-          style="width: 80%; height: 80%;"
+          style="width: 80%; height: 250px;"
         >
           <img
             class="ant-image-img"
             src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
-            style="height: 80%;"
+            style="height: 250px;"
           />
           <div
             class="ant-image-mask"
@@ -66,8 +66,7 @@ exports[`<MusicCard /> should render and match the snapshot 1`] = `
           class="MusicCard__IconsContainer-sc-1l6p3fn-1 cYsZLQ"
         >
           <button
-            class="ant-btn ant-btn-ghost"
-            style="display: flex; margin: auto 3px; justify-content: space-between; align-items: center; background-color: transparent;"
+            class="ant-btn ant-btn-ghost MusicCard__ControlButton-sc-1l6p3fn-2 tTjdd"
             type="button"
           >
             <span
@@ -104,47 +103,8 @@ exports[`<MusicCard /> should render and match the snapshot 1`] = `
             </span>
           </button>
           <button
-            class="ant-btn ant-btn-ghost ant-btn-lg"
+            class="ant-btn ant-btn-text ant-btn-lg MusicCard__ControlButton-sc-1l6p3fn-2 tTjdd"
             disabled=""
-            style="display: flex; margin: auto 3px; justify-content: space-between; align-items: center; background-color: transparent;"
-            type="button"
-          >
-            <span
-              aria-label="pause-circle"
-              class="anticon anticon-pause-circle"
-              role="img"
-              style="font-size: 18px;"
-            >
-              <svg
-                aria-hidden="true"
-                data-icon="pause-circle"
-                fill="currentColor"
-                focusable="false"
-                height="1em"
-                viewBox="64 64 896 896"
-                width="1em"
-              >
-                <path
-                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                  fill="#1890ff"
-                />
-                <path
-                  d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm-80 524c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V360c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v304zm224 0c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V360c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v304z"
-                  fill="#e6f7ff"
-                />
-                <path
-                  d="M424 352h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z"
-                  fill="#1890ff"
-                />
-              </svg>
-            </span>
-            <span>
-              Pause
-            </span>
-          </button>
-          <button
-            class="ant-btn ant-btn-ghost ant-btn-lg"
-            style="display: flex; margin: auto 3px; justify-content: space-between; align-items: center; background-color: transparent;"
             type="button"
           >
             <span
@@ -177,6 +137,7 @@ exports[`<MusicCard /> should render and match the snapshot 1`] = `
             </span>
           </button>
         </div>
+        <audio />
       </div>
     </div>
   </div>
