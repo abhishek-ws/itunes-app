@@ -33,9 +33,11 @@ export const itunesContainerReducer = (state = initialState, action) =>
         break;
       case itunesContainerTypes.FAILURE_SEARCH_ITUNES:
         draft.gridData = {};
+        draft.searchTerm = null;
         draft.searchesError = get(action.error, 'messages', 'something_went_wrong');
         break;
       case itunesContainerTypes.CLEAR_GRID_DATA:
+        draft.searchTerm = null;
         draft.gridData = {};
         break;
       default:
