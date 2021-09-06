@@ -6,6 +6,7 @@
 import produce from 'immer';
 import { createActions } from 'reduxsauce';
 import get from 'lodash/get';
+import { translate } from '@app/components/IntlGlobalProvider/';
 
 export const initialState = {
   searchTerm: null,
@@ -34,7 +35,7 @@ export const itunesContainerReducer = (state = initialState, action) =>
       case itunesContainerTypes.FAILURE_SEARCH_ITUNES:
         draft.gridData = {};
         draft.searchTerm = null;
-        draft.searchError = get(action.error, 'messages', 'something_went_wrong');
+        draft.searchError = get(action.error, 'originalError.message', translate('something_went_wrong'));
         break;
       case itunesContainerTypes.CLEAR_GRID_DATA:
         draft.searchTerm = null;

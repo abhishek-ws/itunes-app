@@ -22,7 +22,7 @@ describe('ItunesContainer saga tests', () => {
     const res = requestSongsGenerator.next().value;
     expect(res).toEqual(call(getSongs, searchTerm));
 
-    const errorRes = { errorMessaege: 'Some error occurred ' };
+    const errorRes = { originalError: { message: 'Some error occurred ' } };
 
     expect(requestSongsGenerator.next(apiResponseGenerator(false, errorRes)).value).toEqual(
       put({

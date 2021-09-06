@@ -1,11 +1,17 @@
 // import produce from 'immer'
 import { itunesContainerReducer, itunesContainerTypes, initialState } from '../reducer';
+import { setIntl, translate } from '@app/components/IntlGlobalProvider/';
+import getIntl from '@utils/createIntl';
 
 /* eslint-disable default-case, no-param-reassign */
 describe('ItunesContainer reducer tests', () => {
   let state;
   beforeEach(() => {
     state = initialState;
+  });
+
+  beforeAll(() => {
+    setIntl(getIntl());
   });
 
   it('should return the initial state', () => {
@@ -34,7 +40,7 @@ describe('ItunesContainer reducer tests', () => {
   });
 
   it('should ensure that when FAILURE_SEARCH_ITUNES is dispatched, the gridData should be erased and then the searchesError is updated with error message', () => {
-    const error = 'something_went_wrong';
+    const error = translate('something_went_wrong');
     const expectedResult = { ...state, searchError: error, gridData: {} };
     expect(
       itunesContainerReducer(state, {
