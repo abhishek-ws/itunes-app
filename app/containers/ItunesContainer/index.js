@@ -82,9 +82,9 @@ export function ItunesContainer({
           defaultValue={searchTerm}
           type="text"
           onChange={(evt) => debouncedHandleOnChange(evt.target.value)}
-          onSearch={(searchText) => debouncedHandleOnChange(searchText)}
         />
       </CustomCard>
+      <div> {loading ? 'Loading ...' : 'Loaded ...'} </div>
     </Container>
   );
 }

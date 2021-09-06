@@ -11,6 +11,12 @@ describe('ItunesContainer selector tests', () => {
   let searchTerm;
   let gridData;
   let searchError;
+  let mockedStateWithoutInitialState = {};
+  let initialState = {
+    gridData: {},
+    searchError: null,
+    searchTerm: null
+  };
 
   beforeEach(() => {
     searchTerm = 'Disco';
@@ -28,6 +34,10 @@ describe('ItunesContainer selector tests', () => {
 
   it('should return state', () => {
     expect(selectItunesContainerDomain(mockedState)).toEqual(mockedState.itunesContainer);
+  });
+
+  it('should return initialState', () => {
+    expect(selectItunesContainerDomain(mockedStateWithoutInitialState)).toEqual(initialState);
   });
 
   it('should select the user state', () => {
