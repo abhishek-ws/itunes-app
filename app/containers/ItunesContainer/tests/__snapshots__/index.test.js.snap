@@ -4,10 +4,10 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ItunesContainer__Container-rg528l-1 ciYfLu"
+      class="ItunesContainer__Container-rg528l-2 cETflF"
     >
       <div
-        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 gbnhsw"
+        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-1 dWjBKV"
         maxwidth="500"
       >
         <div
@@ -76,10 +76,37 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div>
-         
-        Loaded ...
-         
+    </div>
+    <div
+      class="ItunesContainer__ResultContainer-rg528l-0 cpIFf"
+    >
+      <div
+        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-1 leiGbj"
+        color="grey"
+      >
+        <div
+          class="ant-card-head"
+        >
+          <div
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              List of songs will appear below
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="t"
+          >
+            Enter the song name you want to listen right now ...
+          </p>
+        </div>
       </div>
     </div>
   </div>

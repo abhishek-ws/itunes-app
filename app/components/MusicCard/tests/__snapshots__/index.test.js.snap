@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MusicCard /> should render and match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="ant-card ant-card-bordered MusicCard__Container-sc-1l6p3fn-0 hgfVdY"
+      data-testid="music-card"
+    >
+      <div
+        class="ant-card-body"
+      >
+        <div
+          class="ant-image"
+          style="width: 80%; height: 250px;"
+        >
+          <img
+            class="ant-image-img"
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
+            style="height: 250px;"
+          />
+          <div
+            class="ant-image-mask"
+          >
+            <div
+              class="ant-image-mask-info"
+            >
+              <span
+                aria-label="eye"
+                class="anticon anticon-eye"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="eye"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                  />
+                </svg>
+              </span>
+              Preview
+            </div>
+          </div>
+        </div>
+        <h1
+          class="ant-typography"
+          style="font-size: 18px;"
+        >
+          <i>
+            Artist Name
+          </i>
+        </h1>
+        <div
+          class="ant-typography"
+          style="font-size: 12px; height: 50px;"
+        >
+          Song Description
+        </div>
+        <div
+          class="MusicCard__IconsContainer-sc-1l6p3fn-1 cYsZLQ"
+        >
+          <button
+            class="ant-btn ant-btn-ghost MusicCard__ControlButton-sc-1l6p3fn-2 tTjdd"
+            type="button"
+          >
+            <span
+              aria-label="play-circle"
+              class="anticon anticon-play-circle"
+              role="img"
+              style="font-size: 18px;"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="play-circle"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                  fill="#1890ff"
+                />
+                <path
+                  d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm164.1 378.2L457.7 677.1a8.02 8.02 0 01-12.7-6.5V353a8 8 0 0112.7-6.5l218.4 158.8a7.9 7.9 0 010 12.9z"
+                  fill="#e6f7ff"
+                />
+                <path
+                  d="M676.1 505.3L457.7 346.5A8 8 0 00445 353v317.6a8.02 8.02 0 0012.7 6.5l218.4-158.9a7.9 7.9 0 000-12.9z"
+                  fill="#1890ff"
+                />
+              </svg>
+            </span>
+            <span>
+              Play
+            </span>
+          </button>
+          <button
+            class="ant-btn ant-btn-text ant-btn-lg MusicCard__ControlButton-sc-1l6p3fn-2 tTjdd"
+            disabled=""
+            type="button"
+          >
+            <span
+              aria-label="stop"
+              class="anticon anticon-stop"
+              role="img"
+              style="font-size: 18px;"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="stop"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm288.5 682.8L277.7 224C258 240 240 258 224 277.7l522.8 522.8C682.8 852.7 601 884 512 884c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372c0 89-31.3 170.8-83.5 234.8z"
+                  fill="#1890ff"
+                />
+                <path
+                  d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372c89 0 170.8-31.3 234.8-83.5L224 277.7c16-19.7 34-37.7 53.7-53.7l522.8 522.8C852.7 682.8 884 601 884 512c0-205.4-166.6-372-372-372z"
+                  fill="#e6f7ff"
+                />
+              </svg>
+            </span>
+            <span>
+              Stop
+            </span>
+          </button>
+        </div>
+        <audio />
+      </div>
+    </div>
+  </div>
+</body>
+`;
