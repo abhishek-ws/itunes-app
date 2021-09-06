@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import T from '@components/T';
 import { injectSaga } from 'redux-injectors';
-import { selectItunesContainer, selectGridData, selectSearchesError, selectSearchTerm } from './selectors';
+import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
 import { itunesContainerCreators } from './reducer';
 import itunesContainerSaga from './saga';
 import MusicCard from '@app/components/MusicCard/index';
@@ -59,7 +59,7 @@ export function ItunesContainer({
   dispatchClearGridData,
   intl,
   gridData = {},
-  searchesError = null,
+  searchError = null,
   searchTerm,
   maxwidth,
   padding
@@ -67,7 +67,7 @@ export function ItunesContainer({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const loaded = get(gridData, 'results', null) || searchesError;
+    const loaded = get(gridData, 'results', null) || searchError;
     if (loading && loaded) {
       setLoading(false);
     }
@@ -120,17 +120,17 @@ export function ItunesContainer({
   // console.log(gridData.results);
 
   const renderErrorState = () => {
-    let searchError;
-    if (searchesError) {
-      searchError = searchesError;
+    let search_error;
+    if (searchError) {
+      search_error = searchError;
     } else if (!get(gridData, 'totalCount', 0)) {
-      searchError = 'seach_songs_default';
+      search_error = 'search_songs_default';
     }
     return (
       !loading &&
-      searchError && (
-        <CustomCard color={searchesError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
-          <T id={searchError} />
+      search_error && (
+        <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
+          <T id={search_error} />
         </CustomCard>
       )
     );
@@ -166,7 +166,7 @@ ItunesContainer.propTypes = {
     resultCount: PropTypes.number,
     results: PropTypes.array
   }),
-  searchesError: PropTypes.string,
+  searchError: PropTypes.string,
   searchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,
@@ -181,7 +181,7 @@ ItunesContainer.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   itunesContainer: selectItunesContainer(),
   gridData: selectGridData(),
-  searchesError: selectSearchesError(),
+  searchError: selectSearchError(),
   searchTerm: selectSearchTerm()
 });
 

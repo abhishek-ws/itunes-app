@@ -1,5 +1,5 @@
 import {
-  selectSearchesError,
+  selectSearchError,
   selectGridData,
   selectSearchTerm,
   selectItunesContainer,
@@ -10,18 +10,18 @@ describe('ItunesContainer selector tests', () => {
   let mockedState;
   let searchTerm;
   let gridData;
-  let searchesError;
+  let searchError;
 
   beforeEach(() => {
     searchTerm = 'Disco';
     gridData = { songName: 'Disco', songArtist: 'Disco Man' };
-    searchesError = 'Some Error Occurred';
+    searchError = 'Some Error Occurred';
 
     mockedState = {
       itunesContainer: {
         searchTerm,
         gridData,
-        searchesError
+        searchError
       }
     };
   });
@@ -46,7 +46,7 @@ describe('ItunesContainer selector tests', () => {
   });
 
   it('should select the searchesError', () => {
-    const searchesErrorSelector = selectSearchesError();
-    expect(searchesErrorSelector(mockedState)).toEqual(searchesError);
+    const searchErrorSelector = selectSearchError();
+    expect(searchErrorSelector(mockedState)).toEqual(searchError);
   });
 });
