@@ -10,10 +10,10 @@ export const selectItunesContainerDomain = (state) => state.itunesContainer || i
 export const selectItunesContainer = () => createSelector(selectItunesContainerDomain, (substate) => substate);
 
 export const selectGridData = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'gridData', null));
+  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'gridData'));
 
 export const selectSearchTerm = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchTerm', null));
+  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchTerm'));
 
 export const selectSearchError = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchError', null));
+  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchError'));
