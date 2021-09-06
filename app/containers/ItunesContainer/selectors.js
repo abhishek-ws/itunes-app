@@ -15,5 +15,5 @@ export const selectGridData = () =>
 export const selectSearchTerm = () =>
   createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchTerm', null));
 
-export const selectSearchesError = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchesError', null));
+export const selectSearchError = () =>
+  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchError', null));

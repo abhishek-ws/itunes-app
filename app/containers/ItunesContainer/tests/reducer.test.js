@@ -24,7 +24,7 @@ describe('ItunesContainer reducer tests', () => {
 
   it('should ensure that when SEARCH_ITUNES is success and SUCESS_SEARCH_ITUNES is dispatched, it clears the searchesError to "null" and then returns data to update gridData  ', () => {
     const data = { songName: 'Billie Jean', songArtist: 'Michael Jackson' };
-    const expectedResult = { ...state, searchesError: null, gridData: data };
+    const expectedResult = { ...state, searchError: null, gridData: data };
     expect(
       itunesContainerReducer(state, {
         type: itunesContainerTypes.SUCCESS_SEARCH_ITUNES,
@@ -35,7 +35,7 @@ describe('ItunesContainer reducer tests', () => {
 
   it('should ensure that when FAILURE_SEARCH_ITUNES is dispatched, the gridData should be erased and then the searchesError is updated with error message', () => {
     const error = 'something_went_wrong';
-    const expectedResult = { ...state, searchesError: error, gridData: {} };
+    const expectedResult = { ...state, searchError: error, gridData: {} };
     expect(
       itunesContainerReducer(state, {
         type: itunesContainerTypes.FAILURE_SEARCH_ITUNES,

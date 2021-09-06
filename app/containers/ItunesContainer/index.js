@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import T from '@components/T';
 import { injectSaga } from 'redux-injectors';
-import { selectItunesContainer, selectGridData, selectSearchesError, selectSearchTerm } from './selectors';
+import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
 import { itunesContainerCreators } from './reducer';
 import itunesContainerSaga from './saga';
 
@@ -42,7 +42,7 @@ export function ItunesContainer({
   dispatchClearGridData,
   intl,
   gridData = {},
-  searchesError = null,
+  searchError = null,
   searchTerm,
   maxwidth,
   padding
@@ -50,7 +50,7 @@ export function ItunesContainer({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const loaded = get(gridData, 'results', null) || searchesError;
+    const loaded = get(gridData, 'results', null) || searchError;
     if (loading && loaded) {
       setLoading(false);
     }
@@ -97,7 +97,7 @@ ItunesContainer.propTypes = {
     resultCount: PropTypes.number,
     results: PropTypes.array
   }),
-  searchesError: PropTypes.string,
+  searchError: PropTypes.string,
   searchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,
@@ -112,7 +112,7 @@ ItunesContainer.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   itunesContainer: selectItunesContainer(),
   gridData: selectGridData(),
-  searchesError: selectSearchesError(),
+  searchError: selectSearchError(),
   searchTerm: selectSearchTerm()
 });
 

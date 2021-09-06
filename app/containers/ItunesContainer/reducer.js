@@ -10,7 +10,7 @@ import get from 'lodash/get';
 export const initialState = {
   searchTerm: null,
   gridData: {},
-  searchesError: null
+  searchError: null
 };
 
 export const { Types: itunesContainerTypes, Creators: itunesContainerCreators } = createActions({
@@ -28,13 +28,13 @@ export const itunesContainerReducer = (state = initialState, action) =>
         draft.searchTerm = action.searchTerm;
         break;
       case itunesContainerTypes.SUCCESS_SEARCH_ITUNES:
-        draft.searchesError = null;
+        draft.searchError = null;
         draft.gridData = action.data;
         break;
       case itunesContainerTypes.FAILURE_SEARCH_ITUNES:
         draft.gridData = {};
         draft.searchTerm = null;
-        draft.searchesError = get(action.error, 'messages', 'something_went_wrong');
+        draft.searchError = get(action.error, 'messages', 'something_went_wrong');
         break;
       case itunesContainerTypes.CLEAR_GRID_DATA:
         draft.searchTerm = null;
