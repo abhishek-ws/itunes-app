@@ -35,11 +35,20 @@ describe('ItunesContainer reducer tests', () => {
 
   it('should ensure that when FAILURE_SEARCH_ITUNES is dispatched, the gridData should be erased and then the searchesError is updated with error message', () => {
     const error = 'something_went_wrong';
-    const expectedResult = { ...state, searchesError: error, gridData: [] };
+    const expectedResult = { ...state, searchesError: error, gridData: {} };
     expect(
       itunesContainerReducer(state, {
         type: itunesContainerTypes.FAILURE_SEARCH_ITUNES,
         error
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should ensure that CLEAR_GRID_DATA dispatch clears the gridData', () => {
+    const expectedResult = { ...state, gridData: {} };
+    expect(
+      itunesContainerReducer(state, {
+        type: itunesContainerTypes.CLEAR_GRID_DATA
       })
     ).toEqual(expectedResult);
   });

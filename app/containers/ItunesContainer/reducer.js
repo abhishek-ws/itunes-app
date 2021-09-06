@@ -9,7 +9,7 @@ import get from 'lodash/get';
 
 export const initialState = {
   searchTerm: null,
-  gridData: [],
+  gridData: {},
   searchesError: null
 };
 
@@ -17,7 +17,7 @@ export const { Types: itunesContainerTypes, Creators: itunesContainerCreators } 
   searchItunes: ['searchTerm'],
   successSearchItunes: ['data'],
   failureSearchItunes: ['error'],
-  clearGridData: []
+  clearGridData: {}
 });
 
 /* eslint-disable default-case, no-param-reassign */
@@ -32,11 +32,14 @@ export const itunesContainerReducer = (state = initialState, action) =>
         draft.gridData = action.data;
         break;
       case itunesContainerTypes.FAILURE_SEARCH_ITUNES:
-        draft.gridData = [];
+        draft.gridData = {};
+        draft.searchTerm = null;
         draft.searchesError = get(action.error, 'messages', 'something_went_wrong');
         break;
-      default:
-        return state;
+      case itunesContainerTypes.CLEAR_GRID_DATA:
+        draft.searchTerm = null;
+        draft.gridData = {};
+        break;
     }
   });
 
