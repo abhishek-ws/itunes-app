@@ -76,10 +76,37 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div>
-         
-        Loaded ...
-         
+    </div>
+    <div
+      class="ItunesContainer__ResultContainer-rg528l-2 iJdqZx"
+    >
+      <div
+        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 jzArEu"
+        color="grey"
+      >
+        <div
+          class="ant-card-head"
+        >
+          <div
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              List of songs will appear below
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="t"
+          >
+            search_songs_default
+          </p>
+        </div>
       </div>
     </div>
   </div>
