@@ -4,7 +4,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 fxvfAt"
+      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 lkgtxE"
       data-testid="song-card"
     >
       <div

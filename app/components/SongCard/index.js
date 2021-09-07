@@ -17,11 +17,11 @@ const { Paragraph, Title } = Typography;
 
 const Container = styled(Card)`
   && {
-    width: 300px;
-    height: 450px;
+    width: 25em;
+    height: 32em;
     background-color: ${colors.songCardBg};
     display: block;
-    border-radius: 16px;
+    border-radius: 2em;
     box-shadow: inset -6px -6px 12px rgba(0, 0, 0, 0.8), inset 6px 6px 12px rgba(255, 255, 255, 0.4);
     overflow-x: scroll;
     &::-webkit-scrollbar {
