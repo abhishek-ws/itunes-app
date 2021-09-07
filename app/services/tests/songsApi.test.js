@@ -1,19 +1,19 @@
 import MockAdapter from 'axios-mock-adapter';
 import { getApiClient } from '@utils/apiUtils';
-import { getRepos } from '../repoApi';
+import { getSongs } from '../songsApi';
 
-describe('RepoApi tests', () => {
-  const repositoryName = 'mac';
+describe('SearchApi tests', () => {
+  const songName = 'Abhi';
   it('should make the api call to "/search/repositories?q="', async () => {
     const mock = new MockAdapter(getApiClient().axiosInstance);
     const data = [
       {
-        totalCount: 1,
-        items: [{ repositoryName }]
+        resultCount: 1,
+        results: [{ songName }]
       }
     ];
-    mock.onGet(`/search/repositories?q=${repositoryName}`).reply(200, data);
-    const res = await getRepos(repositoryName);
+    mock.onGet(`/search?term=${songName}`).reply(200, data);
+    const res = await getSongs(songName);
     expect(res.data).toEqual(data);
   });
 });

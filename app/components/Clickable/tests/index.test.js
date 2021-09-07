@@ -21,15 +21,15 @@ describe('<Clickable /> component tests', () => {
   });
 
   it('should contain render the text according to the textId', () => {
-    const { getAllByText } = renderWithIntl(<Clickable textId="repo_list" />);
-    expect(getAllByText(/Repository List/).length).toBe(1);
+    const { getAllByText } = renderWithIntl(<Clickable textId="list_songs" />);
+    expect(getAllByText(/List of songs will appear below/).length).toBe(1);
   });
 
   it('should call the prop onClick when the clickable component is clicked', () => {
     const clickSpy = jest.fn();
-    const { getAllByText, queryByText } = renderWithIntl(<Clickable onClick={clickSpy} textId="repo_list" />);
-    expect(getAllByText(/Repository List/).length).toBe(1);
-    fireEvent.click(queryByText(/Repository List/));
+    const { getAllByText, queryByText } = renderWithIntl(<Clickable onClick={clickSpy} textId="list_songs" />);
+    expect(getAllByText(/List of songs will appear below/).length).toBe(1);
+    fireEvent.click(queryByText(/List of songs will appear below/));
     expect(clickSpy).toBeCalled();
   });
 });

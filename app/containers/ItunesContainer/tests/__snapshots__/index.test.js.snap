@@ -1,28 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
+exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="HomeContainer__Container-l0s8pp-1 haKSMo"
+      class="ItunesContainer__Container-rg528l-1 ciYfLu"
     >
       <div
-        class="HomeContainer__RightContent-l0s8pp-2 bvlZvV"
-      >
-        <div
-          class="Clickable__StyledClickable-sc-19lp5om-0 grlVIv"
-          data-testid="clickable"
-        >
-          <p
-            class="T__StyledText-gjlic1-0 kYcyRq"
-            data-testid="t"
-          >
-            Go to Storybook
-          </p>
-        </div>
-      </div>
-      <div
-        class="ant-card ant-card-bordered HomeContainer__CustomCard-l0s8pp-0 kPJcqJ"
+        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 gbnhsw"
         maxwidth="500"
       >
         <div
@@ -34,7 +19,7 @@ exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
             <div
               class="ant-card-head-title"
             >
-              Repository Search
+              My iTunes Store
             </div>
           </div>
         </div>
@@ -45,7 +30,7 @@ exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
             class="T__StyledText-gjlic1-0 demndm"
             data-testid="t"
           >
-            Get details of repositories
+            Search your songs ...
           </p>
           <span
             class="ant-input-group-wrapper ant-input-search"
@@ -91,33 +76,10 @@ exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div
-        class="ant-card ant-card-bordered HomeContainer__CustomCard-l0s8pp-0 gkbTPT"
-        color="grey"
-      >
-        <div
-          class="ant-card-head"
-        >
-          <div
-            class="ant-card-head-wrapper"
-          >
-            <div
-              class="ant-card-head-title"
-            >
-              Repository List
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-card-body"
-        >
-          <p
-            class="T__StyledText-gjlic1-0 kYcyRq"
-            data-testid="t"
-          >
-            Search for a repository by entering it's name in the search box
-          </p>
-        </div>
+      <div>
+         
+        Loaded ...
+         
       </div>
     </div>
   </div>
