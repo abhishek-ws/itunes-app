@@ -9,17 +9,24 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Image, Typography, Button } from 'antd';
 import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
+import { colors } from '@app/themes';
+import handleMusic, { actions } from '@app/utils/audioControl.js';
+import { translate } from '../IntlGlobalProvider/index';
 
 const { Paragraph, Title } = Typography;
 
 const Container = styled(Card)`
   && {
-    max-width: 300px;
+    width: 300px;
     height: 450px;
-    background-color: #434;
+    background-color: ${colors.songCardBg};
     display: block;
     border-radius: 16px;
     box-shadow: inset -6px -6px 12px rgba(0, 0, 0, 0.8), inset 6px 6px 12px rgba(255, 255, 255, 0.4);
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -44,63 +51,36 @@ const ControlButton = styled(Button)`
     background-color: transparent;
   }
 `;
-// const CommonIconSize = 10;
 
 export function SongCard({ song }) {
   const { shortDescription, artworkUrl100, artistName, previewUrl } = song;
-  const [play, setPlay] = React.useState(false);
+  const playStates = React.useState(false);
+  const play = playStates[0];
   const songElement = React.useRef(null);
 
-  const actions = {
-    PLAY: 'playMusic',
-    STOP: 'stopMusic'
-  };
-
-  const handleMusic = (action) => {
-    if (action === actions.PLAY) {
-      songElement.current.src = previewUrl;
-      setPlay(!play);
-      songElement.current.play();
-    } else if (action === actions.STOP) {
-      songElement.current.src = '';
-      setPlay(!play);
-    } else {
-      return;
-    }
-  };
-
   return (
-    // <div data-testid="song-card">
     <Container data-testid="song-card">
       <Image src={artworkUrl100} width="80%" preview="false" height="250px" />
-      <Title style={{ color: '#fafafa', fontSize: 18 }} italic={true}>
+      <Title style={{ color: '#fafafa', fontSize: 16 }} italic={true}>
         {artistName}
       </Title>
-      <Paragraph style={{ color: 'lightblue', fontSize: 12, height: '50px' }}>
-        {shortDescription ? shortDescription : 'No Description available'}
+      <Paragraph style={{ color: 'lightblue', fontSize: 12, height: 40, overflow: 'hidden' }}>
+        {shortDescription ? shortDescription : translate('no_description')}
       </Paragraph>
       <IconsContainer>
         <ControlButton
-          onClick={() => handleMusic(actions.PLAY)}
+          data-testid="play-btn"
+          onClick={() => handleMusic(actions.PLAY, playStates, songElement, previewUrl)}
           disabled={play ? true : false}
           type={play ? 'text' : 'ghost'}
           icon={<PlayCircleTwoTone style={CommonIconStyle} />}
         >
           Play
         </ControlButton>
-        {/* <ControlButton
-          type="ghost"
-          onClick={() => handleMusic(actions.PAUSE)}
-          disabled={play ? false : true}
-          icon={<PauseCircleTwoTone style={CommonIconStyle} />}
-          size="large"
-}
-        >
-          Pause
-        </ControlButton> */}
         <ControlButton
+          data-testid="stop-btn"
           disabled={play ? false : true}
-          onClick={() => handleMusic(actions.STOP)}
+          onClick={() => handleMusic(actions.STOP, playStates, songElement, previewUrl)}
           type={play ? 'ghost' : 'text'}
           icon={<StopTwoTone style={CommonIconStyle} />}
           size="large"
@@ -108,9 +88,8 @@ export function SongCard({ song }) {
           Stop
         </ControlButton>
       </IconsContainer>
-      <audio ref={songElement}></audio>
+      <audio data-testid="audio-element" ref={songElement}></audio>
     </Container>
-    // </div>
   );
 }
 
