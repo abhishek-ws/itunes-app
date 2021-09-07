@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
+import { colors } from '@app/themes';
 import { Card, Skeleton, Input } from 'antd';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
@@ -47,7 +48,7 @@ const ResultContainer = styled.div`
   width: 90%;
   margin: 10px auto;
   padding: 5px 50px;
-  background-color: #434122;
+  background-color: ${colors.musicGridBg};
   border-radius: 40px;
 `;
 
@@ -99,7 +100,7 @@ export function ItunesContainer({
     const totalCount = get(gridData, 'resultCount', 0);
     return (
       <If condition={songs.length !== 0 || loading} otherwise={null}>
-        <Skeleton loading={loading} active>
+        <Skeleton data-testid="skeleton-card" loading={loading} active>
           <If condition={!isEmpty(searchTerm)} otherwise={null}>
             <T style={{ color: '#fafafa', fontSize: 24 }} id="search_query" values={{ searchTerm }} />
           </If>
@@ -107,6 +108,7 @@ export function ItunesContainer({
             <T style={{ color: '#fafafa', fontSize: 24 }} id="matching_songs" values={{ totalCount }} />
           </If>
           <For
+            data-testid="grid"
             of={songs}
             ParentComponent={MusicGrid}
             renderItem={(song, index) => <SongCard song={song} key={index} />}

@@ -47,4 +47,13 @@ describe('ItunesContainer Tests', () => {
     await timeout(500);
     expect(mockDispatchSearch).toBeCalled();
   });
+
+  it('should update the loading state and render the Grid when gridData is available', () => {
+    const gridData = {
+      resultCount: 50,
+      results: [{ songName: 'Song1' }, { songName: 'Song2' }]
+    };
+    const { getByTestId } = renderProvider(<ItunesContainer gridData={gridData} />);
+    expect(getByTestId('for')).toBeInTheDocument();
+  });
 });

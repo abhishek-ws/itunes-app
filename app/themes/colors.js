@@ -11,6 +11,7 @@ const secondary = '#f8c49c';
 const success = '#28a745';
 const error = '#dc3545';
 const songCardBg = '#434';
+const musicGridBg = '#434122';
 
 const colors = {
   transparent: 'rgba(0,0,0,0)',
@@ -21,6 +22,7 @@ const colors = {
   success,
   error,
   songCardBg,
+  musicGridBg,
   theme: {
     lightMode: {
       primary,
