@@ -78,7 +78,7 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="ItunesContainer__ResultContainer-rg528l-2 iJdqZx"
+      class="ItunesContainer__ResultContainer-rg528l-2 cnFdxQ"
     >
       <div
         class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 jzArEu"
