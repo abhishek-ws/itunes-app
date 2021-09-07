@@ -104,7 +104,7 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
             class="T__StyledText-gjlic1-0 kYcyRq"
             data-testid="t"
           >
-            search_songs_default
+            Enter the song name you want to listen right now ...
           </p>
         </div>
       </div>
