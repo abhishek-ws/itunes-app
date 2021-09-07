@@ -15,6 +15,8 @@ import { selectItunesContainer, selectGridData, selectSearchError, selectSearchT
 import { itunesContainerCreators } from './reducer';
 import itunesContainerSaga from './saga';
 import SongCard from '@app/components/SongCard';
+import If from '@app/components/If/index';
+import For from '@app/components/For/index';
 
 const { Search } = Input;
 
@@ -96,25 +98,21 @@ export function ItunesContainer({
     const songs = get(gridData, 'results', []);
     const totalCount = get(gridData, 'resultCount', 0);
     return (
-      (songs.length !== 0 || loading) && (
+      <If condition={songs.length !== 0 || loading} otherwise={null}>
         <Skeleton loading={loading} active>
-          {searchTerm && (
-            <div>
-              <T style={{ color: '#fafafa', fontSize: 24 }} id="search_query" values={{ searchTerm }} />
-            </div>
-          )}
-          {totalCount !== 0 && (
-            <div>
-              <T style={{ color: '#fafafa', fontSize: 24 }} id="matching_songs" values={{ totalCount }} />
-            </div>
-          )}
-          <MusicGrid>
-            {songs.map((song, index) => {
-              return <SongCard song={song} key={index} />;
-            })}
-          </MusicGrid>
+          <If condition={!isEmpty(searchTerm)} otherwise={null}>
+            <T style={{ color: '#fafafa', fontSize: 24 }} id="search_query" values={{ searchTerm }} />
+          </If>
+          <If condition={totalCount !== 0} otherwise={null}>
+            <T style={{ color: '#fafafa', fontSize: 24 }} id="matching_songs" values={{ totalCount }} />
+          </If>
+          <For
+            of={songs}
+            ParentComponent={MusicGrid}
+            renderItem={(song, index) => <SongCard song={song} key={index} />}
+          ></For>
         </Skeleton>
-      )
+      </If>
     );
   };
 
@@ -126,12 +124,11 @@ export function ItunesContainer({
       search_error = 'search_songs_default';
     }
     return (
-      !loading &&
-      search_error && (
+      <If condition={!loading && search_error}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
           {searchError ? <T text={search_error} /> : <T id={search_error} />}
         </CustomCard>
-      )
+      </If>
     );
   };
 

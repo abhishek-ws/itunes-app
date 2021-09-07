@@ -75,7 +75,7 @@ export function SongCard({ song }) {
           type={play ? 'text' : 'ghost'}
           icon={<PlayCircleTwoTone style={CommonIconStyle} />}
         >
-          Play
+          {translate('play-btn')}
         </ControlButton>
         <ControlButton
           data-testid="stop-btn"
@@ -85,7 +85,7 @@ export function SongCard({ song }) {
           icon={<StopTwoTone style={CommonIconStyle} />}
           size="large"
         >
-          Stop
+          {translate('stop-btn')}
         </ControlButton>
       </IconsContainer>
       <audio data-testid="audio-element" ref={songElement}></audio>
