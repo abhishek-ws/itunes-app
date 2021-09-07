@@ -44,7 +44,9 @@ const ResultContainer = styled.div`
   max-width: ${(props) => props.maxwidth * 2}px;
   width: 90%;
   margin: 10px auto;
-  padding: ${(props) => props.padding}px;
+  padding: 5px 50px;
+  background-color: #434122;
+  border-radius: 40px;
 `;
 
 const MusicGrid = styled.div`
@@ -98,12 +100,12 @@ export function ItunesContainer({
         <Skeleton loading={loading} active>
           {searchTerm && (
             <div>
-              <T id="search_query" values={{ searchTerm }} />
+              <T style={{ color: '#fafafa', fontSize: 24 }} id="search_query" values={{ searchTerm }} />
             </div>
           )}
           {totalCount !== 0 && (
             <div>
-              <T id="matching_songs" values={{ totalCount }} />
+              <T style={{ color: '#fafafa', fontSize: 24 }} id="matching_songs" values={{ totalCount }} />
             </div>
           )}
           <MusicGrid>
@@ -120,14 +122,14 @@ export function ItunesContainer({
     let search_error;
     if (searchError) {
       search_error = searchError;
-    } else if (!get(gridData, 'totalCount', 0)) {
+    } else if (!get(gridData, 'resultsCount', 0)) {
       search_error = 'search_songs_default';
     }
     return (
       !loading &&
       search_error && (
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
-          <T id={search_error} />
+          {searchError ? <T text={search_error} /> : <T id={search_error} />}
         </CustomCard>
       )
     );

@@ -4,7 +4,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 bgYNxs"
+      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 hPsKqF"
       data-testid="song-card"
     >
       <div
@@ -50,7 +50,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
         </div>
         <h1
           class="ant-typography"
-          style="font-size: 18px;"
+          style="color: rgb(250, 250, 250); font-size: 18px;"
         >
           <i>
             Artist Name
@@ -58,7 +58,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
         </h1>
         <div
           class="ant-typography"
-          style="font-size: 12px; height: 50px;"
+          style="color: lightblue; font-size: 12px; height: 50px;"
         >
           Song Description
         </div>

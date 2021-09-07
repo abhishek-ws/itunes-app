@@ -16,7 +16,7 @@ const Container = styled(Card)`
   && {
     max-width: 300px;
     height: 450px;
-    background-color: #313131;
+    background-color: #434;
     display: block;
     border-radius: 16px;
     box-shadow: inset -6px -6px 12px rgba(0, 0, 0, 0.8), inset 6px 6px 12px rgba(255, 255, 255, 0.4);
@@ -73,10 +73,10 @@ export function SongCard({ song }) {
     // <div data-testid="song-card">
     <Container data-testid="song-card">
       <Image src={artworkUrl100} width="80%" preview="false" height="250px" />
-      <Title style={{ fontSize: 18 }} italic={true}>
+      <Title style={{ color: '#fafafa', fontSize: 18 }} italic={true}>
         {artistName}
       </Title>
-      <Paragraph style={{ fontSize: 12, height: '50px' }}>
+      <Paragraph style={{ color: 'lightblue', fontSize: 12, height: '50px' }}>
         {shortDescription ? shortDescription : 'No Description available'}
       </Paragraph>
       <IconsContainer>
