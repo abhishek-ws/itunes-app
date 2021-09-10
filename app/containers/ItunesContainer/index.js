@@ -33,11 +33,11 @@ const CustomCard = styled(Card)`
 const Container = styled.div`
   && {
     display: flex;
+    margin: 0 auto;
     flex-direction: column;
     max-width: ${(props) => props.containerWidth}px;
-    width: 100%;
-    margin: 0 auto;
     padding: ${(props) => props.padding}px;
+    background-color: ${colors.musicGridBg};
   }
 `;
 
@@ -134,7 +134,7 @@ export function ItunesContainer({
       error = 'search_songs_default';
     }
     return (
-      <If condition={!loading && error}>
+      <If condition={!loading && error && isEmpty(gridData)} otherwise={null}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
           {searchError ? <T text={error} /> : <T id={error} />}
         </CustomCard>
@@ -144,9 +144,9 @@ export function ItunesContainer({
 
   return (
     <>
-      <Container containerWidth={containerWidth} padding={padding}>
-        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxWidth={containerWidth}>
-          <T marginBottom={10} id="search_your_songs" />
+      <Container maxwidth={maxwidth} padding={padding} containerWidth={containerWidth}>
+        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}>
+          <T id="search_your_songs" />
           <Search
             data-testid="search-bar"
             defaultValue={searchTerm}
@@ -173,7 +173,6 @@ ItunesContainer.propTypes = {
   }),
   searchError: PropTypes.string,
   searchTerm: PropTypes.string,
-  history: PropTypes.object,
   maxwidth: PropTypes.number,
   padding: PropTypes.number,
   containerWidth: PropTypes.number

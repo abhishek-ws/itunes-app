@@ -23,6 +23,7 @@ describe('ItunesContainer Tests', () => {
   beforeEach(() => {
     mockDispatchSearch = jest.fn();
   });
+
   it('should render and match to the snapshot', () => {
     const { baseElement } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
     expect(baseElement).toMatchSnapshot();
