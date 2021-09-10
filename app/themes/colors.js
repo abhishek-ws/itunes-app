@@ -13,6 +13,7 @@ const error = '#dc3545';
 const songCardBg = '#434';
 const musicGridBg = '#434122';
 const styledTColor = '#fafafa';
+const styledPrice = '#fafafa';
 const styledParaColor = 'lightblue';
 const backToHome = 'indigo';
 
@@ -29,6 +30,7 @@ const colors = {
   styledTColor,
   styledParaColor,
   backToHome,
+  styledPrice,
   theme: {
     lightMode: {
       primary,

@@ -11,5 +11,6 @@
   "stories": "Go to Storybook",
   "play-btn": "Play",
   "stop-btn": "Stop",
+  "track-price": "$ {trackPrice}",
   "wednesday_solutions": "Wednesday Solutions"
 }
