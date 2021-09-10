@@ -190,7 +190,7 @@ const mapStateToProps = createStructuredSelector({
   searchTerm: selectSearchTerm()
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const { searchItunes, clearGridData } = itunesContainerCreators;
   return {
     dispatchSearchSongs: (searchTerm) => dispatch(searchItunes(searchTerm)),

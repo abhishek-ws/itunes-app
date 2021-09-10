@@ -6,7 +6,7 @@
 import React from 'react';
 import { timeout, renderProvider } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
-import { ItunesContainerTest as ItunesContainer } from '../index';
+import { ItunesContainerTest as ItunesContainer, mapDispatchToProps } from '../index';
 import ReturnWithRouter from '@utils/returnRouter';
 
 function ItunesWrapper(props) {
@@ -65,5 +65,29 @@ describe('ItunesContainer Tests', () => {
     };
     const { getByTestId } = renderProvider(<ItunesWrapper gridData={gridData} />);
     expect(getByTestId('for')).toBeInTheDocument();
+  });
+
+  it('should dispatchSearchSongs on load, if searchTerm is already persisted and avaiable', async () => {
+    const searchTerm = 'Justin Beiber';
+    renderProvider(<ItunesWrapper searchTerm={searchTerm} dispatchSearchSongs={mockDispatchSearch} />);
+    await timeout(500);
+    expect(mockDispatchSearch).toBeCalled();
+  });
+
+  it('should validate mapDispatchToProps actions', async () => {
+    const dispatchSearchSpy = jest.fn();
+    const searchTerm = 'Justin Beiber';
+    const actions = {
+      dispatchSearchSongs: { searchTerm, type: 'SEARCH_ITUNES' },
+      dispatchClearGridData: { type: 'CLEAR_GRID_DATA' }
+    };
+
+    const props = mapDispatchToProps(dispatchSearchSpy);
+    props.dispatchSearchSongs(searchTerm);
+    expect(dispatchSearchSpy).toHaveBeenCalledWith(actions.dispatchSearchSongs);
+
+    await timeout(500);
+    props.dispatchClearGridData();
+    expect(dispatchSearchSpy).toHaveBeenCalledWith(actions.dispatchClearGridData);
   });
 });
