@@ -8,7 +8,6 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
     >
       <div
         class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 jha-dNF"
-        maxwidth="500"
       >
         <div
           class="ant-card-head"

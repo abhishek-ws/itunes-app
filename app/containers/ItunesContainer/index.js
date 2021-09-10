@@ -59,6 +59,13 @@ const MusicGrid = styled.div`
   grid-row-gap: 30px;
 `;
 
+const StyledT = styled(T)`
+  && {
+    font-size: 24;
+    color: ${colors.styledTColor};
+  }
+`;
+
 export function ItunesContainer({
   dispatchSearchSongs,
   dispatchClearGridData,
@@ -100,13 +107,13 @@ export function ItunesContainer({
     const songs = get(gridData, 'results', []);
     const totalCount = get(gridData, 'resultCount', 0);
     return (
-      <If condition={songs.length !== 0 || loading} otherwise={null}>
+      <If condition={!isEmpty(songs) || !loading} otherwise={null}>
         <Skeleton data-testid="skeleton-card" loading={loading} active>
           <If condition={!isEmpty(searchTerm)} otherwise={null}>
-            <T style={{ color: '#fafafa', fontSize: 24 }} id="search_query" values={{ searchTerm }} />
+            <StyledT id="search_query" values={{ searchTerm }} />
           </If>
           <If condition={totalCount !== 0} otherwise={null}>
-            <T style={{ color: '#fafafa', fontSize: 24 }} id="matching_songs" values={{ totalCount }} />
+            <StyledT id="matching_songs" values={{ totalCount }} />
           </If>
           <For
             data-testid="grid"
@@ -137,8 +144,8 @@ export function ItunesContainer({
 
   return (
     <>
-      <Container maxwidth={maxwidth} padding={padding}>
-        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}>
+      <Container containerWidth={containerWidth} padding={padding}>
+        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxWidth={containerWidth}>
           <T marginBottom={10} id="search_your_songs" />
           <Search
             data-testid="search-bar"
@@ -148,7 +155,7 @@ export function ItunesContainer({
           />
         </CustomCard>
       </Container>
-      <ResultContainer>
+      <ResultContainer maxWidth={maxwidth}>
         {renderGridData()}
         {renderDefaultOrErrorState()}
       </ResultContainer>
