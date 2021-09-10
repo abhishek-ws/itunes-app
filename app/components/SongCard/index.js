@@ -12,6 +12,7 @@ import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
 import { translate } from '../IntlGlobalProvider/index';
 import If from '../If/index';
+import { Link } from 'react-router-dom';
 import { T } from '../T/index';
 
 const { Paragraph } = Typography;
@@ -91,7 +92,7 @@ const StyledImage = styled.img`
 `;
 
 export function SongCard({ song, trackDetails, width, height }) {
-  const { trackName, trackPrice, artworkUrl100, previewUrl } = song;
+  const { trackName, trackPrice, artworkUrl100, previewUrl, trackId } = song;
   const [play, setPlay] = useState(false);
   const songElement = useRef(null);
 
@@ -117,7 +118,9 @@ export function SongCard({ song, trackDetails, width, height }) {
     <Container width={width} height={height} data-testid="song-card">
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
-        <StyledT trackDetails={trackDetails} text={trackName} />
+        <Link to={`/details/${trackId}`}>
+          <StyledT trackDetails={trackDetails} text={trackName} />
+        </Link>
       </HeaderFooter>
 
       <StyledParagraph data-testid="para-test" trackDetails={trackDetails} shortDescription={song.shortDescription}>

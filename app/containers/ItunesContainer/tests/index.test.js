@@ -7,6 +7,15 @@ import React from 'react';
 import { timeout, renderProvider } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
 import { ItunesContainerTest as ItunesContainer } from '../index';
+import ReturnWithRouter from '@utils/returnRouter';
+
+function ItunesWrapper(props) {
+  return (
+    <ReturnWithRouter>
+      <ItunesContainer {...props} />
+    </ReturnWithRouter>
+  );
+}
 
 describe('ItunesContainer Tests', () => {
   let mockDispatchSearch;
@@ -15,7 +24,7 @@ describe('ItunesContainer Tests', () => {
     mockDispatchSearch = jest.fn();
   });
   it('should render and match to the snapshot', () => {
-    const { baseElement } = renderProvider(<ItunesContainer dispatchSearchSongs={mockDispatchSearch} />);
+    const { baseElement } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
     expect(baseElement).toMatchSnapshot();
   });
 
@@ -24,7 +33,7 @@ describe('ItunesContainer Tests', () => {
     const clearGridDataSpy = jest.fn();
 
     const { getByTestId } = renderProvider(
-      <ItunesContainer dispatchSearchSongs={searchSongsSpy} dispatchClearGridData={clearGridDataSpy} />
+      <ItunesWrapper dispatchSearchSongs={searchSongsSpy} dispatchClearGridData={clearGridDataSpy} />
     );
 
     fireEvent.change(getByTestId('search-bar'), {
@@ -40,7 +49,7 @@ describe('ItunesContainer Tests', () => {
   });
 
   it('should call dispatchSearchSongs on change', async () => {
-    const { getByTestId } = renderProvider(<ItunesContainer dispatchSearchSongs={mockDispatchSearch} />);
+    const { getByTestId } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
     fireEvent.change(getByTestId('search-bar'), {
       target: { value: 'Despacito' }
     });
@@ -53,7 +62,7 @@ describe('ItunesContainer Tests', () => {
       resultCount: 50,
       results: [{ songName: 'Song1' }, { songName: 'Song2' }]
     };
-    const { getByTestId } = renderProvider(<ItunesContainer gridData={gridData} />);
+    const { getByTestId } = renderProvider(<ItunesWrapper gridData={gridData} />);
     expect(getByTestId('for')).toBeInTheDocument();
   });
 });
