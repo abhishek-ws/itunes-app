@@ -12,6 +12,9 @@ const success = '#28a745';
 const error = '#dc3545';
 const songCardBg = '#434';
 const musicGridBg = '#434122';
+const styledTColor = '#fafafa';
+const styledParaColor = 'lightblue';
+const backToHome = 'indigo';
 
 const colors = {
   transparent: 'rgba(0,0,0,0)',
@@ -23,6 +26,9 @@ const colors = {
   error,
   songCardBg,
   musicGridBg,
+  styledTColor,
+  styledParaColor,
+  backToHome,
   theme: {
     lightMode: {
       primary,

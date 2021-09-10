@@ -4,11 +4,10 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ItunesContainer__Container-rg528l-1 ciYfLu"
+      class="ItunesContainer__Container-rg528l-1 bSrhH"
     >
       <div
-        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 gbnhsw"
-        maxwidth="500"
+        class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 jha-dNF"
       >
         <div
           class="ant-card-head"
@@ -78,7 +77,7 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="ItunesContainer__ResultContainer-rg528l-2 jpqHwz"
+      class="ItunesContainer__ResultContainer-rg528l-2 eeApxe"
     >
       <div
         class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 jzArEu"

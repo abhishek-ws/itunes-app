@@ -24,7 +24,7 @@ const { Search } = Input;
 const CustomCard = styled(Card)`
   && {
     margin: 10px 0;
-    max-width: ${(props) => props.maxwidth};
+    max-width: ${(props) => props.containerWidth};
     color: ${(props) => props.color};
     ${(props) => props.color && `color: ${props.color}`};
   }
@@ -34,7 +34,7 @@ const Container = styled.div`
   && {
     display: flex;
     flex-direction: column;
-    max-width: ${(props) => props.maxwidth}px;
+    max-width: ${(props) => props.containerWidth}px;
     width: 100%;
     margin: 0 auto;
     padding: ${(props) => props.padding}px;
@@ -44,7 +44,7 @@ const Container = styled.div`
 const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${(props) => props.maxwidth * 2}px;
+  max-width: ${(props) => props.maxwidth}px;
   width: 90%;
   margin: 10px auto;
   padding: 5px 50px;
@@ -59,6 +59,13 @@ const MusicGrid = styled.div`
   grid-row-gap: 30px;
 `;
 
+const StyledT = styled(T)`
+  && {
+    font-size: 24;
+    color: ${colors.styledTColor};
+  }
+`;
+
 export function ItunesContainer({
   dispatchSearchSongs,
   dispatchClearGridData,
@@ -67,7 +74,8 @@ export function ItunesContainer({
   searchError = null,
   searchTerm,
   maxwidth,
-  padding
+  padding,
+  containerWidth
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -99,13 +107,13 @@ export function ItunesContainer({
     const songs = get(gridData, 'results', []);
     const totalCount = get(gridData, 'resultCount', 0);
     return (
-      <If condition={songs.length !== 0 || loading} otherwise={null}>
+      <If condition={!isEmpty(songs) || !loading} otherwise={null}>
         <Skeleton data-testid="skeleton-card" loading={loading} active>
           <If condition={!isEmpty(searchTerm)} otherwise={null}>
-            <T style={{ color: '#fafafa', fontSize: 24 }} id="search_query" values={{ searchTerm }} />
+            <StyledT id="search_query" values={{ searchTerm }} />
           </If>
           <If condition={totalCount !== 0} otherwise={null}>
-            <T style={{ color: '#fafafa', fontSize: 24 }} id="matching_songs" values={{ totalCount }} />
+            <StyledT id="matching_songs" values={{ totalCount }} />
           </If>
           <For
             data-testid="grid"
@@ -119,16 +127,16 @@ export function ItunesContainer({
   };
 
   const renderDefaultOrErrorState = () => {
-    let search_error;
+    let error;
     if (searchError) {
-      search_error = searchError;
+      error = searchError;
     } else if (!get(gridData, 'resultsCount', 0)) {
-      search_error = 'search_songs_default';
+      error = 'search_songs_default';
     }
     return (
-      <If condition={!loading && search_error}>
+      <If condition={!loading && error}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
-          {searchError ? <T text={search_error} /> : <T id={search_error} />}
+          {searchError ? <T text={error} /> : <T id={error} />}
         </CustomCard>
       </If>
     );
@@ -136,8 +144,8 @@ export function ItunesContainer({
 
   return (
     <>
-      <Container maxwidth={maxwidth} padding={padding}>
-        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}>
+      <Container containerWidth={containerWidth} padding={padding}>
+        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxWidth={containerWidth}>
           <T marginBottom={10} id="search_your_songs" />
           <Search
             data-testid="search-bar"
@@ -147,7 +155,7 @@ export function ItunesContainer({
           />
         </CustomCard>
       </Container>
-      <ResultContainer>
+      <ResultContainer maxWidth={maxwidth}>
         {renderGridData()}
         {renderDefaultOrErrorState()}
       </ResultContainer>
@@ -167,7 +175,8 @@ ItunesContainer.propTypes = {
   searchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,
-  padding: PropTypes.number
+  padding: PropTypes.number,
+  containerWidth: PropTypes.number
 };
 
 ItunesContainer.defaultProps = {
