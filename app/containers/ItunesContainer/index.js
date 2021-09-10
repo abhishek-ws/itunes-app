@@ -24,7 +24,7 @@ const { Search } = Input;
 const CustomCard = styled(Card)`
   && {
     margin: 10px 0;
-    max-width: ${(props) => props.maxwidth};
+    max-width: ${(props) => props.containerWidth};
     color: ${(props) => props.color};
     ${(props) => props.color && `color: ${props.color}`};
   }
@@ -34,7 +34,7 @@ const Container = styled.div`
   && {
     display: flex;
     flex-direction: column;
-    max-width: ${(props) => props.maxwidth}px;
+    max-width: ${(props) => props.containerWidth}px;
     width: 100%;
     margin: 0 auto;
     padding: ${(props) => props.padding}px;
@@ -44,7 +44,7 @@ const Container = styled.div`
 const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${(props) => props.maxwidth * 2}px;
+  max-width: ${(props) => props.maxwidth}px;
   width: 90%;
   margin: 10px auto;
   padding: 5px 50px;
@@ -67,7 +67,8 @@ export function ItunesContainer({
   searchError = null,
   searchTerm,
   maxwidth,
-  padding
+  padding,
+  containerWidth
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -119,16 +120,16 @@ export function ItunesContainer({
   };
 
   const renderDefaultOrErrorState = () => {
-    let search_error;
+    let error;
     if (searchError) {
-      search_error = searchError;
+      error = searchError;
     } else if (!get(gridData, 'resultsCount', 0)) {
-      search_error = 'search_songs_default';
+      error = 'search_songs_default';
     }
     return (
-      <If condition={!loading && search_error}>
+      <If condition={!loading && error}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
-          {searchError ? <T text={search_error} /> : <T id={search_error} />}
+          {searchError ? <T text={error} /> : <T id={error} />}
         </CustomCard>
       </If>
     );
@@ -167,7 +168,8 @@ ItunesContainer.propTypes = {
   searchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,
-  padding: PropTypes.number
+  padding: PropTypes.number,
+  containerWidth: PropTypes.number
 };
 
 ItunesContainer.defaultProps = {

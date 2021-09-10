@@ -7,18 +7,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Card, Image, Typography, Button } from 'antd';
+import { Card, Typography, Button } from 'antd';
 import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
 import handleMusic, { actions } from '@app/utils/audioControl.js';
 import { translate } from '../IntlGlobalProvider/index';
+import { T } from '../T/index';
 
-const { Paragraph, Title } = Typography;
+const { Paragraph } = Typography;
 
 const Container = styled(Card)`
   && {
-    width: 25em;
-    height: 32em;
+    width: ${(props) => (props.width ? props.width : 25)}em;
+    height: ${(props) => (props.height ? props.height : 32)}em;
     background-color: ${colors.songCardBg};
     display: block;
     border-radius: 2em;
@@ -52,7 +53,30 @@ const ControlButton = styled(Button)`
   }
 `;
 
-export function SongCard({ song }) {
+const StyledT = styled(T)`
+  && {
+    font-size: 16;
+    color: ${colors.styledTColor};
+  }
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  && {
+    margin-top: 10;
+    color: ${colors.styledParaColor};
+    font-size: 12;
+    height: 40;
+    overflow: hidden;
+  }
+`;
+
+const StyledImage = styled.img`
+  width: 100;
+  height: 14em;
+  margin-bottom: 2em;
+`;
+
+export function SongCard({ song, width, height }) {
   const { shortDescription, artworkUrl100, artistName, previewUrl } = song;
   const playStates = React.useState(false);
   const play = playStates[0];
@@ -60,13 +84,9 @@ export function SongCard({ song }) {
 
   return (
     <Container data-testid="song-card">
-      <Image src={artworkUrl100} width="80%" preview="false" height="250px" />
-      <Title style={{ color: '#fafafa', fontSize: 16 }} italic={true}>
-        {artistName}
-      </Title>
-      <Paragraph style={{ color: 'lightblue', fontSize: 12, height: 40, overflow: 'hidden' }}>
-        {shortDescription ? shortDescription : translate('no_description')}
-      </Paragraph>
+      <StyledImage src={artworkUrl100} />
+      <StyledT text={artistName} />
+      <StyledParagraph>{shortDescription ? shortDescription : translate('no_description')}</StyledParagraph>
       <IconsContainer>
         <ControlButton
           data-testid="play-btn"
@@ -94,6 +114,8 @@ export function SongCard({ song }) {
 }
 
 SongCard.propTypes = {
-  song: PropTypes.object
+  song: PropTypes.object,
+  width: PropTypes.number,
+  height: PropTypes.number
 };
 export default SongCard;
