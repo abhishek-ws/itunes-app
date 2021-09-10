@@ -7,13 +7,22 @@ import get from 'lodash/get';
 
 export const selectItunesContainerDomain = (state) => state.itunesContainer || initialState;
 
+function getState(state) {
+  return createSelector(selectItunesContainerDomain, (substate) => get(substate, state));
+}
+
 export const selectItunesContainer = () => createSelector(selectItunesContainerDomain, (substate) => substate);
 
-export const selectGridData = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'gridData'));
+export const selectGridData = () => getState('gridData');
 
-export const selectSearchTerm = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchTerm'));
+export const selectSearchTerm = () => getState('searchTerm');
 
-export const selectSearchError = () =>
-  createSelector(selectItunesContainerDomain, (substate) => get(substate, 'searchError'));
+export const selectSearchError = () => getState('searchError');
+
+export const selectTrackDetails = () => getState('trackDetails');
+
+export const selectSongsCache = () => getState('songsCache');
+
+export const selectTrackId = () => getState('trackId');
+
+export const selectTrackSearchError = () => getState('trackSearchError');

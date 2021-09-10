@@ -13,5 +13,6 @@
   "stop-btn": "Stop",
   "back-to-home": "Back to home",
   "track-price": "$ {trackPrice}",
+  "no-price": "Price Not available ...",
   "wednesday_solutions": "Wednesday Solutions"
 }

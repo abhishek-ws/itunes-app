@@ -12,6 +12,8 @@ import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
 import handleMusic, { actions } from '@app/utils/audioControl.js';
 import { translate } from '../IntlGlobalProvider/index';
+import If from '../If/index';
+import { Link } from 'react-router-dom';
 import { T } from '../T/index';
 
 const { Paragraph } = Typography;
@@ -55,8 +57,15 @@ const ControlButton = styled(Button)`
 
 const StyledT = styled(T)`
   && {
-    font-size: 16;
-    color: ${colors.styledTColor};
+    font-size: ${(props) => (props.trackDetails ? 2 : 1.1)}em;
+    margin: ${(props) => (props.trackDetails ? '20 0' : 0)};
+  }
+`;
+const StyledPrice = styled(T)`
+  && {
+    color: ${colors.styledPriceColor};
+    font-size: ${(props) => (props.trackDetails ? 40 : 16)};
+    margin: 20 10;
   }
 `;
 
@@ -64,29 +73,48 @@ const StyledParagraph = styled(Paragraph)`
   && {
     margin-top: 10;
     color: ${colors.styledParaColor};
-    font-size: 12;
-    height: 40;
+    font-size: ${(props) => (props.trackDetails ? 1.5 : 1)}em;
+    height: ${(props) => (props.shortDescription ? 7 : 4.5)}em;
     overflow: hidden;
   }
 `;
 
+const HeaderFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StyledImage = styled.img`
-  width: 100;
-  height: 14em;
+  width: 100px;
+  height: ${(props) => (props.trackDetails ? 18 : 14)}em;
   margin-bottom: 2em;
 `;
 
-export function SongCard({ song, width, height }) {
-  const { shortDescription, artworkUrl100, artistName, previewUrl } = song;
+export function SongCard({ song, trackDetails, width, height }) {
+  const { trackName, trackPrice, artworkUrl100, artistName, previewUrl, trackId } = song;
   const playStates = React.useState(false);
   const play = playStates[0];
   const songElement = React.useRef(null);
 
   return (
-    <Container data-testid="song-card">
-      <StyledImage src={artworkUrl100} />
-      <StyledT text={artistName} />
-      <StyledParagraph>{shortDescription ? shortDescription : translate('no_description')}</StyledParagraph>
+    <Container width={width} height={height} data-testid="song-card">
+      <HeaderFooter>
+        <StyledImage src={artworkUrl100} />
+        <Link to={`/details/${trackId}`}>
+          <StyledT trackDetails={trackDetails} text={trackName} />
+        </Link>
+      </HeaderFooter>
+
+      <StyledParagraph data-testid="para-test" trackDetails={trackDetails} shortDescription={song.shortDescription}>
+        <If
+          condition={song.shortDescription}
+          otherwise={song.longDescription ? song.longDescription : translate('no_description')}
+        >
+          {song.shortDescription}
+        </If>
+      </StyledParagraph>
       <IconsContainer>
         <ControlButton
           data-testid="play-btn"
@@ -108,6 +136,11 @@ export function SongCard({ song, width, height }) {
           {translate('stop-btn')}
         </ControlButton>
       </IconsContainer>
+      <HeaderFooter>
+        <If condition={trackPrice} otherwise={<StyledPrice data-testid="no-price-tag" id="no-price" />}>
+          <StyledPrice id="track-price" values={{ trackPrice }} />
+        </If>
+      </HeaderFooter>
       <audio data-testid="audio-element" ref={songElement}></audio>
     </Container>
   );
@@ -116,6 +149,7 @@ export function SongCard({ song, width, height }) {
 SongCard.propTypes = {
   song: PropTypes.object,
   width: PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
+  trackDetails: PropTypes.bool
 };
 export default SongCard;

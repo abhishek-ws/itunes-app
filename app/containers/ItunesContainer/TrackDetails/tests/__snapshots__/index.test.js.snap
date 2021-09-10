@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TrackDetails /> container tests should render and match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="TrackDetails__Container-dlhfxi-0 iuNvlR"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-active"
+      >
+        <div
+          class="ant-skeleton-content"
+        >
+          <h3
+            class="ant-skeleton-title"
+            style="width: 38%;"
+          />
+          <ul
+            class="ant-skeleton-paragraph"
+          >
+            <li />
+            <li />
+            <li
+              style="width: 61%;"
+            />
+          </ul>
+        </div>
+      </div>
+      <a
+        href="/"
+      >
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq TrackDetails__StyledT-dlhfxi-1 gRXuBf"
+          data-testid="t"
+        >
+          Back to home
+        </p>
+      </a>
+    </div>
+  </div>
+</body>
+`;

@@ -3,31 +3,42 @@ import {
   selectGridData,
   selectSearchTerm,
   selectItunesContainer,
-  selectItunesContainerDomain
+  selectItunesContainerDomain,
+  selectTrackId,
+  selectTrackDetails,
+  selectSongsCache,
+  selectTrackSearchError
 } from '../selectors';
+import { initialState } from '../reducer';
 
 describe('ItunesContainer selector tests', () => {
   let mockedState;
   let searchTerm;
   let gridData;
   let searchError;
+  let trackId;
+  let trackSearchError;
+  let songsCache;
+  let trackDetails;
   let mockedStateWithoutInitialState = {};
-  let initialState = {
-    gridData: {},
-    searchError: null,
-    searchTerm: null
-  };
 
   beforeEach(() => {
     searchTerm = 'Disco';
     gridData = { songName: 'Disco', songArtist: 'Disco Man' };
     searchError = 'Some Error Occurred';
-
+    trackId = 12345;
+    trackSearchError = 'Some Error Occurred';
+    songsCache = { song1: 'SomeSong', songName1: 'AnotherSong' };
+    trackDetails = { songName: 'Song1', artist: 'Artist' };
     mockedState = {
       itunesContainer: {
         searchTerm,
         gridData,
-        searchError
+        searchError,
+        trackId,
+        songsCache,
+        trackDetails,
+        trackSearchError
       }
     };
   });
@@ -58,5 +69,25 @@ describe('ItunesContainer selector tests', () => {
   it('should select the searchError', () => {
     const searchErrorSelector = selectSearchError();
     expect(searchErrorSelector(mockedState)).toEqual(searchError);
+  });
+
+  it('should select trackId', () => {
+    const trackIdSelector = selectTrackId();
+    expect(trackIdSelector(mockedState)).toEqual(trackId);
+  });
+
+  it('should select trackDetails', () => {
+    const trackDetailSelector = selectTrackDetails();
+    expect(trackDetailSelector(mockedState)).toEqual(trackDetails);
+  });
+
+  it('should select songsCache', () => {
+    const songsCacheSelector = selectSongsCache();
+    expect(songsCacheSelector(mockedState)).toEqual(songsCache);
+  });
+
+  it('should select trackSearchError', () => {
+    const trackSearchErrorSelector = selectTrackSearchError();
+    expect(trackSearchErrorSelector(mockedState)).toEqual(trackSearchError);
   });
 });

@@ -10,18 +10,28 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
       <div
         class="ant-card-body"
       >
-        <img
-          class="SongCard__StyledImage-sc-163fh4j-5 bHxMpS"
-          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
-        />
-        <p
-          class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 fCZcLR"
-          data-testid="t"
-        >
-          Artist Name
-        </p>
         <div
-          class="ant-typography SongCard__StyledParagraph-sc-163fh4j-4 bFziKx"
+          class="SongCard__HeaderFooter-sc-163fh4j-6 bBcspZ"
+        >
+          <img
+            class="SongCard__StyledImage-sc-163fh4j-7 egedQz"
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
+          />
+          <a
+            href="/details/1234"
+          >
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 gjIxDk"
+              data-testid="t"
+            >
+              Track
+            </p>
+          </a>
+        </div>
+        <div
+          class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 ctnAOd"
+          data-testid="para-test"
+          shortdescription="Song Description"
         >
           Song Description
         </div>
@@ -101,6 +111,16 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
               Stop
             </span>
           </button>
+        </div>
+        <div
+          class="SongCard__HeaderFooter-sc-163fh4j-6 bBcspZ"
+        >
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 bKmQRo"
+            data-testid="t"
+          >
+            $ 200
+          </p>
         </div>
         <audio
           data-testid="audio-element"
