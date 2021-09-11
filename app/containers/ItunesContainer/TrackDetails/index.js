@@ -61,16 +61,16 @@ export function TrackDetails({
   }, []);
 
   return (
-    <If condition={!error} otherwise={<T id="something_went_wrong" />}>
-      <Container>
+    <Container>
+      <If condition={!error} otherwise={<T id="something_went_wrong" />}>
         <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
           <SongCard song={trackDetails} trackDetails={true} width={width} height={height} padding={padding} />
         </Skeleton>
-        <Link to="/">
-          <StyledT id="back-to-home" />
-        </Link>
-      </Container>
-    </If>
+      </If>
+      <Link to="/">
+        <StyledT id="back-to-home" />
+      </Link>
+    </Container>
   );
 }
 
