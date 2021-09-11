@@ -109,10 +109,8 @@ export function ItunesContainer({
     return (
       <If condition={!isEmpty(songs) || !loading} otherwise={null}>
         <Skeleton data-testid="skeleton-card" loading={loading} active>
-          <If condition={!isEmpty(searchTerm)} otherwise={null}>
-            <StyledT id="search_query" values={{ searchTerm }} />
-          </If>
           <If condition={totalCount !== 0} otherwise={null}>
+            <StyledT id="search_query" values={{ searchTerm }} />
             <StyledT id="matching_songs" values={{ totalCount }} />
           </If>
           <For

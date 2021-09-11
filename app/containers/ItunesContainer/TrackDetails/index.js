@@ -21,6 +21,8 @@ import itunesContainerSaga from '../saga';
 import { itunesContainerCreators } from '../reducer';
 import { Link } from 'react-router-dom';
 import { colors } from '@app/themes';
+import If from '@app/components/If/index';
+import { isEmpty } from 'lodash';
 
 const Container = styled.div`
   display: grid;
@@ -46,12 +48,10 @@ export function TrackDetails({
 }) {
   const { trackId } = useParams();
 
-  const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(false);
   useEffect(() => {
-    const loaded = trackDetails || trackSearchError;
-    if (loaded) {
-      setLoading(false);
+    if (!isEmpty(trackSearchError)) {
+      setError(true);
     }
   }, [trackDetails, trackSearchError]);
 
@@ -61,14 +61,16 @@ export function TrackDetails({
   }, []);
 
   return (
-    <Container>
-      <Skeleton data-testid="skeleton-card" loading={loading} active>
-        <SongCard song={trackDetails} trackDetails={true} width={width} height={height} padding={padding} />
-      </Skeleton>
-      <Link to="/">
-        <StyledT id="back-to-home" />
-      </Link>
-    </Container>
+    <If condition={!error} otherwise={<T id="something_went_wrong" />}>
+      <Container>
+        <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
+          <SongCard song={trackDetails} trackDetails={true} width={width} height={height} padding={padding} />
+        </Skeleton>
+        <Link to="/">
+          <StyledT id="back-to-home" />
+        </Link>
+      </Container>
+    </If>
   );
 }
 
