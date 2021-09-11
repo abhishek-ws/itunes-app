@@ -70,4 +70,16 @@ describe('<TrackDetails /> container tests', () => {
     props.dispatchClearTrackDetails();
     expect(dispatchSearchSpy).toHaveBeenCalledWith(actions.dispatchClearTrackDetails);
   });
+
+  it('should render error when trackSearchError occurs', async () => {
+    const { getByTestId } = renderProvider(
+      <TrackDetailsWrapper
+        dispatchTrackSearch={submitSpyTrackSearch}
+        dispatchClearTrackDetails={submitSpyClearTrackDetails}
+        trackSearchError="error"
+      />
+    );
+    await timeout(500);
+    expect(getByTestId('track-detail-error')).toBeInTheDocument();
+  });
 });
