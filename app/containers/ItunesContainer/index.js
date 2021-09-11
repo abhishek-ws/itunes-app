@@ -134,7 +134,11 @@ export function ItunesContainer({
     return (
       <If condition={!loading && error && isEmpty(gridData)} otherwise={null}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
-          {searchError ? <T text={error} /> : <T id={error} />}
+          {searchError ? (
+            <T data-testid="itunes-error-message" text={error} />
+          ) : (
+            <T data-testid="default-message" id={error} />
+          )}
         </CustomCard>
       </If>
     );

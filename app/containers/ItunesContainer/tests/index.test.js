@@ -90,4 +90,20 @@ describe('ItunesContainer Tests', () => {
     props.dispatchClearGridData();
     expect(dispatchSearchSpy).toHaveBeenCalledWith(actions.dispatchClearGridData);
   });
+
+  it('should render the error message', async () => {
+    const { getByTestId } = renderProvider(
+      <ItunesWrapper dispatchSearchSongs={mockDispatchSearch} searchError="error" />
+    );
+
+    await timeout(500);
+    expect(getByTestId('itunes-error-message')).toBeInTheDocument();
+  });
+
+  it('should render the default message', async () => {
+    const { getByTestId } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
+
+    await timeout(500);
+    expect(getByTestId('default-message')).toBeInTheDocument();
+  });
 });
