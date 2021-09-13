@@ -91,9 +91,8 @@ const StyledImage = styled.img`
   margin-bottom: 2em;
 `;
 
-
 export function SongCard({ song, trackDetails, width, height, onActionClick }) {
-  const { trackName, trackPrice, artworkUrl100, previewUrl } = song;
+  const { trackName, trackPrice, artworkUrl100, previewUrl, trackId } = song;
 
   const [play, setPlay] = useState(false);
   const songElement = useRef(null);
