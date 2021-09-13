@@ -16,8 +16,8 @@ import { selectItunesContainer, selectGridData, selectSearchError, selectSearchT
 import { itunesContainerCreators } from './reducer';
 import itunesContainerSaga from './saga';
 import SongCard from '@app/components/SongCard';
-import If from '@app/components/If/index';
-import For from '@app/components/For/index';
+import If from '@components/If';
+import For from '@components/For';
 
 const { Search } = Input;
 
@@ -105,10 +105,14 @@ export function ItunesContainer({
 
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
-  const handleActionClick = (audioRef, isPLaying) => {
-    if (isPLaying && currentTrack != audioRef) {
-      currentTrack.current.src = '';
+  const handleActionClick = (audioRef) => {
+    if (isEmpty(currentTrack)) {
       setCurrentTrack(audioRef);
+    } else {
+      if (currentTrack != audioRef) {
+        currentTrack.current.src = '';
+        setCurrentTrack(audioRef);
+      }
     }
   };
 
@@ -126,15 +130,7 @@ export function ItunesContainer({
             data-testid="grid"
             of={songs}
             ParentComponent={MusicGrid}
-            renderItem={(song, index) => (
-              <SongCard
-                song={song}
-                key={index}
-                onActionClick={handleActionClick}
-                setCurrentTrack={setCurrentTrack}
-                currentTrack={currentTrack}
-              />
-            )}
+            renderItem={(song, index) => <SongCard song={song} key={index} onActionClick={handleActionClick} />}
           />
         </Skeleton>
       </If>
