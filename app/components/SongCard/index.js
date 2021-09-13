@@ -10,9 +10,9 @@ import styled from 'styled-components';
 import { Card, Typography, Button } from 'antd';
 import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
-import { translate } from '../IntlGlobalProvider/index';
-import If from '../If/index';
-import { T } from '../T/index';
+import { translate } from '@components/IntlGlobalProvider';
+import If from '@components/If';
+import { T } from '@components/T';
 
 const { Paragraph } = Typography;
 
@@ -90,36 +90,34 @@ const StyledImage = styled.img`
   margin-bottom: 2em;
 `;
 
-export function SongCard({ song, trackDetails, width, height, onActionClick, setCurrentTrack, currentTrack }) {
+export function SongCard({ song, trackDetails, width, height, onActionClick }) {
   const { trackName, trackPrice, artworkUrl100, previewUrl } = song;
   const [play, setPlay] = useState(false);
   const songElement = useRef(null);
 
-  // console.log(songElement);
   const actions = {
     PLAY: 'playMusic',
     STOP: 'stopMusic'
   };
 
   useEffect(() => {
-    if (songElement !== currentTrack) {
+    if (songElement.current.paused) {
       setPlay(false);
     }
-  }, [currentTrack]);
+  });
 
-  const handleMusic = async (action, songEl, songUrl) => {
+  const handleMusic = async (action, songUrl) => {
     switch (action) {
       case actions.PLAY:
-        songEl.current.src = songUrl;
-        setCurrentTrack(songEl);
+        songElement.current.src = songUrl;
         setPlay(!play);
-        await songEl.current.play();
+        onActionClick(songElement);
+        await songElement.current.play();
         break;
       case actions.STOP:
-        songEl.current.src = '';
+        songElement.current.src = '';
         setPlay(!play);
     }
-    onActionClick(songEl, actions.PLAY === action);
   };
 
   return (
@@ -140,7 +138,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick, set
       <IconsContainer>
         <ControlButton
           data-testid="play-btn"
-          onClick={() => handleMusic(actions.PLAY, songElement, previewUrl)}
+          onClick={() => handleMusic(actions.PLAY, previewUrl)}
           disabled={play}
           type={play ? 'text' : 'ghost'}
           icon={<PlayCircleTwoTone style={commonIconStyle} />}
@@ -150,7 +148,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick, set
         <ControlButton
           data-testid="stop-btn"
           disabled={!play}
-          onClick={() => handleMusic(actions.STOP, songElement, previewUrl)}
+          onClick={() => handleMusic(actions.STOP, previewUrl)}
           type={play ? 'ghost' : 'text'}
           icon={<StopTwoTone style={commonIconStyle} />}
           size="large"
