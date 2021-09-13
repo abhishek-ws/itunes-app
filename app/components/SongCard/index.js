@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Typography, Button } from 'antd';
@@ -13,6 +13,7 @@ import { colors } from '@app/themes';
 import { translate } from '../IntlGlobalProvider/index';
 import If from '../If/index';
 import { T } from '../T/index';
+import { isEmpty } from 'lodash';
 
 const { Paragraph } = Typography;
 
@@ -90,7 +91,7 @@ const StyledImage = styled.img`
   margin-bottom: 2em;
 `;
 
-export function SongCard({ song, trackDetails, width, height }) {
+export function SongCard({ song, trackDetails, width, height, onActionClick, setCurrentTrack }) {
   const { trackName, trackPrice, artworkUrl100, previewUrl } = song;
   const [play, setPlay] = useState(false);
   const songElement = useRef(null);
@@ -100,10 +101,17 @@ export function SongCard({ song, trackDetails, width, height }) {
     STOP: 'stopMusic'
   };
 
+  useEffect(() => {
+    if (isEmpty(songElement.current.src)) {
+      setPlay(false);
+    }
+  });
+
   const handleMusic = async (action, songEl, songUrl) => {
     switch (action) {
       case actions.PLAY:
         songEl.current.src = songUrl;
+        setCurrentTrack(songEl);
         setPlay(!play);
         await songEl.current.play();
         break;
@@ -111,6 +119,7 @@ export function SongCard({ song, trackDetails, width, height }) {
         songEl.current.src = '';
         setPlay(!play);
     }
+    onActionClick(songEl, actions.PLAY === action, setPlay);
   };
 
   return (
@@ -163,6 +172,8 @@ SongCard.propTypes = {
   song: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
-  trackDetails: PropTypes.bool
+  trackDetails: PropTypes.bool,
+  onActionClick: PropTypes.func,
+  setCurrentTrack: PropTypes.func
 };
 export default SongCard;

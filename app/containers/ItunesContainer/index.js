@@ -78,6 +78,7 @@ export function ItunesContainer({
   containerWidth
 }) {
   const [loading, setLoading] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   useEffect(() => {
     const loaded = get(gridData, 'results', null) || searchError;
@@ -101,7 +102,15 @@ export function ItunesContainer({
       dispatchClearGridData();
     }
   };
+
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
+
+  const handleActionClick = (audioRef, isPLaying) => {
+    if (isPLaying && currentTrack != audioRef) {
+      currentTrack.current.src = '';
+      setCurrentTrack(audioRef);
+    }
+  };
 
   const renderGridData = () => {
     const songs = get(gridData, 'results', []);
@@ -119,7 +128,9 @@ export function ItunesContainer({
             data-testid="grid"
             of={songs}
             ParentComponent={MusicGrid}
-            renderItem={(song, index) => <SongCard song={song} key={index} />}
+            renderItem={(song, index) => (
+              <SongCard song={song} key={index} onActionClick={handleActionClick} setCurrentTrack={setCurrentTrack} />
+            )}
           />
         </Skeleton>
       </If>
