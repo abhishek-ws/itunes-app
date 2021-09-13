@@ -92,7 +92,6 @@ const StyledImage = styled.img`
 `;
 
 export function SongCard({ song, trackDetails, width, height }) {
-
   const { trackName, trackPrice, artworkUrl100, previewUrl, trackId } = song;
 
   const [play, setPlay] = useState(false);
