@@ -27,6 +27,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
               Track
             </p>
           </a>
+
         </div>
         <div
           class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 ctnAOd"
@@ -116,10 +117,10 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           class="SongCard__HeaderFooter-sc-163fh4j-6 bBcspZ"
         >
           <p
-            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 bKmQRo"
-            data-testid="t"
+            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 zUpYc"
+            data-testid="no-price-tag"
           >
-            $ 200
+            no-price
           </p>
         </div>
         <audio
