@@ -48,22 +48,12 @@ describe('ItunesContainer Tests', () => {
     expect(mockDispatchSearch).toBeCalled();
   });
 
-  it('should update the loading state and render "Loading ..." when calling to api', async () => {
-    const { getByText, getByTestId } = renderProvider(<ItunesContainer dispatchSearchSongs={mockDispatchSearch} />);
-
-    fireEvent.change(getByTestId('search-bar'), {
-      target: { value: 'Tayl' }
-    });
-    await timeout(500);
-    expect(getByText('Loading ...'));
-  });
-
-  it('should update the loading state and render "Loaded ..." when gridData is available', () => {
+  it('should update the loading state and render the Grid when gridData is available', () => {
     const gridData = {
       resultCount: 50,
       results: [{ songName: 'Song1' }, { songName: 'Song2' }]
     };
-    const { getByText } = renderProvider(<ItunesContainer gridData={gridData} />);
-    expect(getByText('Loaded ...'));
+    const { getByTestId } = renderProvider(<ItunesContainer gridData={gridData} />);
+    expect(getByTestId('for')).toBeInTheDocument();
   });
 });

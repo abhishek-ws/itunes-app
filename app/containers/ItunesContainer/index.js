@@ -6,7 +6,8 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import { Card, Input } from 'antd';
+import { colors } from '@app/themes';
+import { Card, Skeleton, Input } from 'antd';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import T from '@components/T';
@@ -14,13 +15,16 @@ import { injectSaga } from 'redux-injectors';
 import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
 import { itunesContainerCreators } from './reducer';
 import itunesContainerSaga from './saga';
+import SongCard from '@app/components/SongCard';
+import If from '@components/If';
+import For from '@components/For';
 
 const { Search } = Input;
 
 const CustomCard = styled(Card)`
   && {
     margin: 10px 0;
-    max-width: ${(props) => props.maxwidth};
+    max-width: ${(props) => props.containerWidth};
     color: ${(props) => props.color};
     ${(props) => props.color && `color: ${props.color}`};
   }
@@ -30,10 +34,35 @@ const Container = styled.div`
   && {
     display: flex;
     flex-direction: column;
-    max-width: ${(props) => props.maxwidth}px;
+    max-width: ${(props) => props.containerWidth}px;
     width: 100%;
     margin: 0 auto;
     padding: ${(props) => props.padding}px;
+  }
+`;
+
+const ResultContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: ${(props) => props.maxwidth}px;
+  width: 90%;
+  margin: 10px auto;
+  padding: 5px 50px;
+  background-color: ${colors.musicGridBg};
+  border-radius: 40px;
+`;
+
+const MusicGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20;
+  grid-row-gap: 30px;
+`;
+
+const StyledT = styled(T)`
+  && {
+    font-size: 24;
+    color: ${colors.styledTColor};
   }
 `;
 
@@ -45,9 +74,11 @@ export function ItunesContainer({
   searchError = null,
   searchTerm,
   maxwidth,
-  padding
+  padding,
+  containerWidth
 }) {
   const [loading, setLoading] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   useEffect(() => {
     const loaded = get(gridData, 'results', null) || searchError;
@@ -71,21 +102,77 @@ export function ItunesContainer({
       dispatchClearGridData();
     }
   };
+
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
+  const handleActionClick = (audioRef) => {
+    if (isEmpty(currentTrack)) {
+      setCurrentTrack(audioRef);
+    } else {
+      if (currentTrack != audioRef) {
+        currentTrack.current.src = '';
+        setCurrentTrack(audioRef);
+      }
+    }
+  };
+
+  const renderGridData = () => {
+    const songs = get(gridData, 'results', []);
+    const totalCount = get(gridData, 'resultCount', 0);
+    return (
+      <If condition={!isEmpty(songs) || !loading} otherwise={null}>
+        <Skeleton data-testid="skeleton-card" loading={loading} active>
+          <If condition={!isEmpty(searchTerm)} otherwise={null}>
+            <StyledT id="search_query" values={{ searchTerm }} />
+          </If>
+          <If condition={totalCount !== 0} otherwise={null}>
+            <StyledT id="matching_songs" values={{ totalCount }} />
+          </If>
+          <For
+            data-testid="grid"
+            of={songs}
+            ParentComponent={MusicGrid}
+            renderItem={(song, index) => <SongCard song={song} key={index} onActionClick={handleActionClick} />}
+          />
+        </Skeleton>
+      </If>
+    );
+  };
+
+  const renderDefaultOrErrorState = () => {
+    let error;
+    if (searchError) {
+      error = searchError;
+    } else if (!get(gridData, 'resultsCount', 0)) {
+      error = 'search_songs_default';
+    }
+    return (
+      <If condition={!loading && error}>
+        <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
+          {searchError ? <T text={error} /> : <T id={error} />}
+        </CustomCard>
+      </If>
+    );
+  };
+
   return (
-    <Container maxwidth={maxwidth} padding={padding}>
-      <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}>
-        <T marginBottom={10} id="search_your_songs" />
-        <Search
-          data-testid="search-bar"
-          defaultValue={searchTerm}
-          type="text"
-          onChange={(evt) => debouncedHandleOnChange(evt.target.value)}
-        />
-      </CustomCard>
-      <div> {loading ? 'Loading ...' : 'Loaded ...'} </div>
-    </Container>
+    <>
+      <Container containerWidth={containerWidth} padding={padding}>
+        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxWidth={containerWidth}>
+          <T marginBottom={10} id="search_your_songs" />
+          <Search
+            data-testid="search-bar"
+            defaultValue={searchTerm}
+            type="text"
+            onChange={(evt) => debouncedHandleOnChange(evt.target.value)}
+          />
+        </CustomCard>
+      </Container>
+      <ResultContainer maxWidth={maxwidth}>
+        {renderGridData()}
+        {renderDefaultOrErrorState()}
+      </ResultContainer>
+    </>
   );
 }
 
@@ -101,7 +188,8 @@ ItunesContainer.propTypes = {
   searchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,
-  padding: PropTypes.number
+  padding: PropTypes.number,
+  containerWidth: PropTypes.number
 };
 
 ItunesContainer.defaultProps = {
