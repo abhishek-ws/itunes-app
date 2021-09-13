@@ -175,8 +175,6 @@ SongCard.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   trackDetails: PropTypes.bool,
-  onActionClick: PropTypes.func,
-  setCurrentTrack: PropTypes.func,
-  currentTrack: PropTypes.reference
+  onActionClick: PropTypes.func
 };
 export default SongCard;

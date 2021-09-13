@@ -21,7 +21,7 @@ import itunesContainerSaga from '../saga';
 import { itunesContainerCreators } from '../reducer';
 import { Link } from 'react-router-dom';
 import { colors } from '@app/themes';
-import If from '@app/components/If/index';
+import If from '@components/If/index';
 import { isEmpty } from 'lodash';
 
 const Container = styled.div`
@@ -61,11 +61,31 @@ export function TrackDetails({
     dispatchTrackSearch(trackId);
   }, []);
 
+  const [currentTrack, setCurrentTrack] = useState(null);
+
+  const handleActionClick = (audioRef) => {
+    if (isEmpty(currentTrack)) {
+      setCurrentTrack(audioRef);
+    } else {
+      if (currentTrack != audioRef) {
+        currentTrack.current.src = '';
+        setCurrentTrack(audioRef);
+      }
+    }
+  };
+
   return (
     <Container>
       <If condition={!error} otherwise={<T data-testid="track-detail-error" id="something_went_wrong" />}>
         <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
-          <SongCard song={trackDetails} trackDetails={true} width={width} height={height} padding={padding} />
+          <SongCard
+            song={trackDetails}
+            trackDetails={true}
+            width={width}
+            height={height}
+            padding={padding}
+            onActionClick={handleActionClick}
+          />
         </Skeleton>
       </If>
       <Link to="/">
