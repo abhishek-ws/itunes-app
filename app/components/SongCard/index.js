@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Typography, Button } from 'antd';
@@ -91,21 +91,29 @@ const StyledImage = styled.img`
   margin-bottom: 2em;
 `;
 
-export function SongCard({ song, trackDetails, width, height }) {
+  
+export function SongCard({ song, trackDetails, width, height, onActionClick, setCurrentTrack, currentTrack }) {
   const { trackName, trackPrice, artworkUrl100, previewUrl, trackId } = song;
-
   const [play, setPlay] = useState(false);
   const songElement = useRef(null);
 
+  // console.log(songElement);
   const actions = {
     PLAY: 'playMusic',
     STOP: 'stopMusic'
   };
 
+  useEffect(() => {
+    if (songElement !== currentTrack) {
+      setPlay(false);
+    }
+  }, [currentTrack]);
+
   const handleMusic = async (action, songEl, songUrl) => {
     switch (action) {
       case actions.PLAY:
         songEl.current.src = songUrl;
+        setCurrentTrack(songEl);
         setPlay(!play);
         await songEl.current.play();
         break;
@@ -113,6 +121,7 @@ export function SongCard({ song, trackDetails, width, height }) {
         songEl.current.src = '';
         setPlay(!play);
     }
+    onActionClick(songEl, actions.PLAY === action);
   };
 
   return (
@@ -167,6 +176,9 @@ SongCard.propTypes = {
   song: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
-  trackDetails: PropTypes.bool
+  trackDetails: PropTypes.bool,
+  onActionClick: PropTypes.func,
+  setCurrentTrack: PropTypes.func,
+  currentTrack: PropTypes.reference
 };
 export default SongCard;
