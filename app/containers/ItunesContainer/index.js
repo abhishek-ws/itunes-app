@@ -129,7 +129,13 @@ export function ItunesContainer({
             of={songs}
             ParentComponent={MusicGrid}
             renderItem={(song, index) => (
-              <SongCard song={song} key={index} onActionClick={handleActionClick} setCurrentTrack={setCurrentTrack} />
+              <SongCard
+                song={song}
+                key={index}
+                onActionClick={handleActionClick}
+                setCurrentTrack={setCurrentTrack}
+                currentTrack={currentTrack}
+              />
             )}
           />
         </Skeleton>

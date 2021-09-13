@@ -13,7 +13,6 @@ import { colors } from '@app/themes';
 import { translate } from '../IntlGlobalProvider/index';
 import If from '../If/index';
 import { T } from '../T/index';
-import { isEmpty } from 'lodash';
 
 const { Paragraph } = Typography;
 
@@ -91,21 +90,22 @@ const StyledImage = styled.img`
   margin-bottom: 2em;
 `;
 
-export function SongCard({ song, trackDetails, width, height, onActionClick, setCurrentTrack }) {
+export function SongCard({ song, trackDetails, width, height, onActionClick, setCurrentTrack, currentTrack }) {
   const { trackName, trackPrice, artworkUrl100, previewUrl } = song;
   const [play, setPlay] = useState(false);
   const songElement = useRef(null);
 
+  // console.log(songElement);
   const actions = {
     PLAY: 'playMusic',
     STOP: 'stopMusic'
   };
 
   useEffect(() => {
-    if (isEmpty(songElement.current.src)) {
+    if (songElement !== currentTrack) {
       setPlay(false);
     }
-  });
+  }, [currentTrack]);
 
   const handleMusic = async (action, songEl, songUrl) => {
     switch (action) {
@@ -119,7 +119,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick, set
         songEl.current.src = '';
         setPlay(!play);
     }
-    onActionClick(songEl, actions.PLAY === action, setPlay);
+    onActionClick(songEl, actions.PLAY === action);
   };
 
   return (
@@ -174,6 +174,7 @@ SongCard.propTypes = {
   height: PropTypes.number,
   trackDetails: PropTypes.bool,
   onActionClick: PropTypes.func,
-  setCurrentTrack: PropTypes.func
+  setCurrentTrack: PropTypes.func,
+  currentTrack: PropTypes.reference
 };
 export default SongCard;
