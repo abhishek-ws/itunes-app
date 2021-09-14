@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Typography, Button } from 'antd';
@@ -69,7 +69,7 @@ const StyledParagraph = styled(Paragraph)`
     margin-top: 10;
     color: ${colors.styledParaColor};
     font-size: ${(props) => (props.trackDetails ? 1.5 : 1)}em;
-    height: ${(props) => (props.shortDescription ? 7 : 4.5)}em;
+    height: ${(props) => (props.full ? 7 : 4.5)}em;
     overflow: hidden;
   }
 `;
@@ -104,29 +104,17 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
   const songElement = useRef(null);
   const [play, setPlay] = useState(false);
 
-  const actions = {
-    PLAY: 'playMusic',
-    STOP: 'stopMusic'
-  };
+  const isPlaying = () => (songElement.current ? !songElement.current.paused : false);
 
-  useEffect(() => {
-    if (songElement.current.paused) {
-      setPlay(false);
+  const handleMusic = () => {
+    setPlay(!play);
+    const isPaused = songElement.current.paused;
+    if (isPaused) {
+      songElement.current.play();
+    } else {
+      songElement.current.pause();
     }
-  }, [songElement?.current?.paused]);
-
-  const handleMusic = (action) => {
-    switch (action) {
-      case actions.PLAY:
-        songElement.current.src = previewUrl;
-        setPlay(!play);
-        trackDetails ?? onActionClick(songElement);
-        songElement.current.play();
-        break;
-      case actions.STOP:
-        songElement.current.src = '';
-        setPlay(!play);
-    }
+    onActionClick(songElement);
   };
 
   return (
@@ -138,7 +126,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
         </Link>
       </HeaderFooter>
 
-      <StyledParagraph data-testid="para-test" trackDetails={trackDetails} shortDescription={song.shortDescription}>
+      <StyledParagraph data-testid="para-test" trackDetails={trackDetails} full={song.shortDescription}>
         <If
           condition={song.shortDescription}
           otherwise={song.longDescription ? song.longDescription : translate('no_description')}
@@ -149,18 +137,18 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
       <IconsContainer>
         <ControlButton
           data-testid="play-btn"
-          onClick={() => handleMusic(actions.PLAY)}
-          disabled={play}
-          type={play ? 'text' : 'ghost'}
+          onClick={handleMusic}
+          disabled={isPlaying()}
+          type={isPlaying() ? 'text' : 'ghost'}
           icon={<StyledPlayIcon />}
         >
           {translate('play-btn')}
         </ControlButton>
         <ControlButton
           data-testid="stop-btn"
-          disabled={!play}
-          onClick={() => handleMusic(actions.STOP)}
-          type={play ? 'ghost' : 'text'}
+          disabled={!isPlaying()}
+          onClick={handleMusic}
+          type={!isPlaying() ? 'ghost' : 'text'}
           icon={<StyledStopIcon />}
           size="large"
         >
@@ -172,11 +160,13 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
           <StyledPrice id="track-price" values={{ trackPrice }} />
         </If>
       </HeaderFooter>
-      <audio data-testid="audio-element" ref={songElement}></audio>
+      <audio data-testid="audio-element" src={previewUrl} ref={songElement}></audio>
     </Container>
   );
 }
-
+SongCard.defaultProps = {
+  onActionClick: () => {}
+};
 SongCard.propTypes = {
   song: PropTypes.shape({
     trackId: PropTypes.number,

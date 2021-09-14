@@ -96,6 +96,7 @@ export function ItunesContainer({
 
   const handleOnChange = (searchTerm) => {
     if (!isEmpty(searchTerm)) {
+      // console.log('Something');
       dispatchSearchSongs(searchTerm);
       setLoading(true);
     } else {
@@ -106,13 +107,12 @@ export function ItunesContainer({
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
   const handleActionClick = (audioRef) => {
-    if (isEmpty(currentTrack)) {
+    if (currentTrack?.current?.src !== audioRef?.current.src) {
       setCurrentTrack(audioRef);
-    } else {
-      if (currentTrack != audioRef) {
-        currentTrack.current.src = '';
-        setCurrentTrack(audioRef);
-      }
+    }
+    const isPaused = currentTrack?.current.paused;
+    if (!isPaused && currentTrack?.current?.src !== audioRef?.current.src) {
+      currentTrack.current.pause();
     }
   };
 
@@ -120,9 +120,9 @@ export function ItunesContainer({
     const songs = get(gridData, 'results', []);
     const totalCount = get(gridData, 'resultCount', 0);
     return (
-      <If condition={!isEmpty(songs) || !loading} otherwise={null}>
+      <If condition={!isEmpty(songs) || !loading}>
         <Skeleton data-testid="skeleton-card" loading={loading} active>
-          <If condition={totalCount !== 0} otherwise={null}>
+          <If condition={totalCount !== 0}>
             <StyledT id="search_query" values={{ searchTerm }} />
             <StyledT id="matching_songs" values={{ totalCount }} />
           </If>
@@ -147,7 +147,7 @@ export function ItunesContainer({
       error = 'search_songs_default';
     }
     return (
-      <If condition={!loading && error && isEmpty(gridData)} otherwise={null}>
+      <If condition={!loading && error && isEmpty(gridData)}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
           <If condition={searchError} otherwise={<T data-testid="default-message" id={error} />}>
             <T data-testid="itunes-error-message" text={error} />

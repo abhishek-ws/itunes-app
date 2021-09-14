@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { fireEvent } from '@testing-library/dom';
-import { renderWithIntl } from '@utils/testUtils';
+import { renderWithIntl, timeout } from '@utils/testUtils';
 import SongCard from '../index';
 import { setIntl, translate } from '@app/components/IntlGlobalProvider/';
 import getIntl from '@utils/createIntl';
@@ -34,18 +34,6 @@ describe('<SongCard/> tests', () => {
   it('should contain 1 SongCard component', () => {
     const { getAllByTestId } = renderWithIntl(<SongCard song={song} />);
     expect(getAllByTestId('song-card').length).toBe(1);
-  });
-
-  it('should play the song when "Play Button" clicked', () => {
-    const { getByTestId } = renderWithIntl(<SongCard song={song} onActionClick={jest.fn()} />);
-    fireEvent.click(getByTestId('play-btn'));
-    expect(getByTestId('audio-element').src).toBe(song.previewUrl);
-  });
-
-  it('should stop the song when "Stop Button" clicked', () => {
-    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
-    fireEvent.click(getByTestId('stop-btn'));
-    expect(getByTestId('audio-element').src).toBe('');
   });
 
   it('should render No-price translation when trackPrice is not available', () => {
@@ -96,11 +84,34 @@ describe('<SongCard/> tests', () => {
     expect(getByTestId('para-test')).toHaveTextContent(song.longDescription);
   });
 
-  it('should disable the Play button once, song is played', () => {
+  it('should disable the Play button once, song is played', async () => {
+    let audio;
+
+    const playFn = jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(() => {
+      audio.paused = !audio.paused;
+    });
+    const pauseFn = jest.spyOn(window.HTMLMediaElement.prototype, 'pause').mockImplementation(() => {
+      audio.paused = !audio.paused;
+    });
+
     const { getByTestId } = renderWithIntl(<SongCard song={song} onActionClick={jest.fn()} />);
+    audio = getByTestId('audio-element');
     fireEvent.click(getByTestId('play-btn'));
+
+    await timeout(500);
     expect(getByTestId('play-btn')).toBeDisabled();
     expect(getByTestId('stop-btn')).toBeEnabled();
+
+    expect(playFn).toBeCalled();
+    expect(pauseFn).not.toBeCalled();
+
+    fireEvent.click(getByTestId('stop-btn'));
+
+    await timeout(500);
+
+    expect(pauseFn).toBeCalled();
+    expect(getByTestId('play-btn')).toBeEnabled();
+    expect(getByTestId('stop-btn')).toBeDisabled();
   });
 
   it('should disable the Stop button once, song is stopped', () => {
