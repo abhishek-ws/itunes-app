@@ -148,7 +148,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
           data-testid="stop-btn"
           disabled={!isPlaying()}
           onClick={handleMusic}
-          type={!isPlaying() ? 'ghost' : 'text'}
+          type={!isPlaying() ? 'text' : 'ghost'}
           icon={<StyledStopIcon />}
           size="large"
         >
