@@ -84,11 +84,11 @@ describe('ItunesContainer reducer tests', () => {
       trackId,
       songsCache
     };
-
+    const response = { data, trackDetails };
     expect(
       itunesContainerReducer(mockedState, {
         type: itunesContainerTypes.SUCCESS_SEARCH_TRACK,
-        data
+        response
       })
     ).toEqual(expectedResult);
   });

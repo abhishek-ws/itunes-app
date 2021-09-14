@@ -5,8 +5,6 @@
  */
 import produce from 'immer';
 import { createActions } from 'reduxsauce';
-import get from 'lodash/get';
-import { translate } from '@app/components/IntlGlobalProvider/';
 
 export const initialState = {
   searchTerm: null,
@@ -23,7 +21,7 @@ export const { Types: itunesContainerTypes, Creators: itunesContainerCreators } 
   successSearchItunes: ['data'],
   failureSearchItunes: ['error'],
   searchTrack: ['trackId'],
-  successSearchTrack: ['data'],
+  successSearchTrack: ['response'],
   failureSearchTrack: ['error'],
   trackDetails: {},
   clearGridData: {},
@@ -44,7 +42,7 @@ export const itunesContainerReducer = (state = initialState, action) =>
       case itunesContainerTypes.FAILURE_SEARCH_ITUNES:
         draft.gridData = {};
         draft.searchTerm = null;
-        draft.searchError = get(action.error, 'originalError.message', translate('something_went_wrong'));
+        draft.searchError = action.error;
         break;
       case itunesContainerTypes.CLEAR_GRID_DATA:
         draft.searchTerm = null;
@@ -58,12 +56,12 @@ export const itunesContainerReducer = (state = initialState, action) =>
       case itunesContainerTypes.SUCCESS_SEARCH_TRACK:
         draft.trackDetails = {};
         draft.trackSearchError = null;
-        draft.songsCache[draft.trackId] = action.data;
-        draft.trackDetails = draft.songsCache[draft.trackId].results[0];
+        draft.songsCache[draft.trackId] = action.response.data;
+        draft.trackDetails = action.response.trackDetails;
         break;
       case itunesContainerTypes.FAILURE_SEARCH_TRACK:
         draft.trackDetails = {};
-        draft.trackSearchError = get(action.error, 'message', translate('something_went_wrong'));
+        draft.trackSearchError = action.error;
         break;
       case itunesContainerTypes.CLEAR_TRACK_DETAILS:
         draft.trackDetails = {};

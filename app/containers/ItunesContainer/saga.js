@@ -3,11 +3,10 @@ import { itunesContainerTypes, itunesContainerCreators } from './reducer';
 import { getSongs, getTrackDetails } from '@services/songsApi';
 import { selectSongsCache } from './selectors';
 import { isEmpty } from 'lodash';
+import { translate } from '@app/components/IntlGlobalProvider/';
 
 const { SEARCH_ITUNES, SEARCH_TRACK } = itunesContainerTypes;
 const { successSearchItunes, failureSearchItunes, successSearchTrack, failureSearchTrack } = itunesContainerCreators;
-
-// const songsCache = selectSongsCache();
 
 export function* requestSearchItunes(action) {
   const res = yield call(getSongs, action.searchTerm);
@@ -15,7 +14,8 @@ export function* requestSearchItunes(action) {
   if (ok) {
     yield put(successSearchItunes(data));
   } else {
-    yield put(failureSearchItunes(data));
+    const error = data?.originalError?.message ?? translate('something_went_wrong');
+    yield put(failureSearchItunes(error));
   }
 }
 
@@ -28,14 +28,17 @@ export function* requestTrackDetails(action) {
   }
   if (!isEmpty(songsCache) && songsCache[action.trackId]) {
     const data = songsCache[action.trackId];
-    yield put(successSearchTrack(data));
+    const response = { data, trackDetails: data.results[0] };
+    yield put(successSearchTrack(response));
   } else {
     const res = yield call(getTrackDetails, action.trackId);
     const { data, ok } = res;
     if (ok) {
-      yield put(successSearchTrack(data));
+      const response = { data, trackDetails: data.results[0] };
+      yield put(successSearchTrack(response));
     } else {
-      yield put(failureSearchTrack(data));
+      const error = data?.originalError?.message ?? translate('something_went_wrong');
+      yield put(failureSearchTrack(error));
     }
   }
 }

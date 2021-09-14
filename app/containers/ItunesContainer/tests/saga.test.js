@@ -31,7 +31,7 @@ describe('ItunesContainer saga tests', () => {
     const res = requestSongsGenerator.next().value;
     expect(res).toEqual(call(getSongs, searchTerm));
 
-    const errorRes = { originalError: { message: 'Some error occurred ' } };
+    const errorRes = translate('something_went_wrong');
 
     expect(requestSongsGenerator.next(apiResponseGenerator(false, errorRes)).value).toEqual(
       put({
@@ -46,15 +46,15 @@ describe('ItunesContainer saga tests', () => {
     const res = requestSongsGenerator.next().value;
     expect(res).toEqual(call(getSongs, searchTerm));
 
-    const successResponse = {
+    const data = {
       resultCount: 0,
       results: [{ songName: 'Billie Jean', songArtist: 'Michael Jackson' }]
     };
 
-    expect(requestSongsGenerator.next(apiResponseGenerator(true, successResponse)).value).toEqual(
+    expect(requestSongsGenerator.next(apiResponseGenerator(true, data)).value).toEqual(
       put({
         type: itunesContainerTypes.SUCCESS_SEARCH_ITUNES,
-        data: successResponse
+        data
       })
     );
   });
@@ -67,16 +67,16 @@ describe('ItunesContainer saga tests', () => {
     const res1 = requestTrackDetailsGenerator.next().value;
     const res2 = requestTrackDetailsGenerator.next().value;
     expect(res2).toEqual(call(getTrackDetails, trackId));
+    const trackDetails = { songName: 'Billie Jean', songArtist: 'Michael Jackson' };
 
-    const successResponse = {
-      resultCount: 0,
+    const data = {
       results: [{ songName: 'Billie Jean', songArtist: 'Michael Jackson' }]
     };
 
-    expect(requestTrackDetailsGenerator.next(apiResponseGenerator(true, successResponse)).value).toEqual(
+    expect(requestTrackDetailsGenerator.next(apiResponseGenerator(true, data)).value).toEqual(
       put({
         type: itunesContainerTypes.SUCCESS_SEARCH_TRACK,
-        data: successResponse
+        response: { data, trackDetails }
       })
     );
   });
@@ -87,7 +87,7 @@ describe('ItunesContainer saga tests', () => {
     const res2 = requestTrackDetailsGenerator.next().value;
     expect(res2).toEqual(call(getTrackDetails, trackId));
 
-    const errorRes = { message: translate('something_went_wrong') };
+    const errorRes = translate('something_went_wrong');
 
     expect(requestTrackDetailsGenerator.next(apiResponseGenerator(false, errorRes)).value).toEqual(
       put({
@@ -98,13 +98,17 @@ describe('ItunesContainer saga tests', () => {
   });
 
   it('should use songsCache if available', () => {
-    const testSagaCache = { 1234: { songName: 'song' } };
+    const trackDetails = { songName: 'song' };
+    const testSagaCache = { 1234: { results: [trackDetails] } };
     requestTrackDetailsGenerator = requestTrackDetails({ trackId, testSagaCache });
     const res = requestTrackDetailsGenerator.next().value;
     expect(res).toEqual(
       put({
         type: itunesContainerTypes.SUCCESS_SEARCH_TRACK,
-        data: testSagaCache[trackId]
+        response: {
+          data: testSagaCache[trackId],
+          trackDetails
+        }
       })
     );
   });

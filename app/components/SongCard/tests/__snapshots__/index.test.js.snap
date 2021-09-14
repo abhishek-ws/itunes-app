@@ -45,9 +45,8 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           >
             <span
               aria-label="play-circle"
-              class="anticon anticon-play-circle"
+              class="anticon anticon-play-circle SongCard__StyledPlayIcon-sc-163fh4j-8 hAhBDZ"
               role="img"
-              style="font-size: 18px;"
             >
               <svg
                 aria-hidden="true"
@@ -84,9 +83,8 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           >
             <span
               aria-label="stop"
-              class="anticon anticon-stop"
+              class="anticon anticon-stop SongCard__StyledStopIcon-sc-163fh4j-9 zxaUc"
               role="img"
-              style="font-size: 18px;"
             >
               <svg
                 aria-hidden="true"

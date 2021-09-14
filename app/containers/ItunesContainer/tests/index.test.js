@@ -4,18 +4,9 @@
  *
  */
 import React from 'react';
-import { timeout, renderProvider } from '@utils/testUtils';
+import { renderWithIntl, timeout } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
 import { ItunesContainerTest as ItunesContainer, mapDispatchToProps } from '../index';
-import ReturnWithRouter from '@utils/returnRouter';
-
-function ItunesWrapper(props) {
-  return (
-    <ReturnWithRouter>
-      <ItunesContainer {...props} />
-    </ReturnWithRouter>
-  );
-}
 
 describe('ItunesContainer Tests', () => {
   let mockDispatchSearch;
@@ -25,7 +16,7 @@ describe('ItunesContainer Tests', () => {
   });
 
   it('should render and match to the snapshot', () => {
-    const { baseElement } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
+    const { baseElement } = renderWithIntl(<ItunesContainer dispatchSearchSongs={mockDispatchSearch} />);
     expect(baseElement).toMatchSnapshot();
   });
 
@@ -33,8 +24,8 @@ describe('ItunesContainer Tests', () => {
     const searchSongsSpy = jest.fn();
     const clearGridDataSpy = jest.fn();
 
-    const { getByTestId } = renderProvider(
-      <ItunesWrapper dispatchSearchSongs={searchSongsSpy} dispatchClearGridData={clearGridDataSpy} />
+    const { getByTestId } = renderWithIntl(
+      <ItunesContainer dispatchSearchSongs={searchSongsSpy} dispatchClearGridData={clearGridDataSpy} />
     );
 
     fireEvent.change(getByTestId('search-bar'), {
@@ -50,7 +41,7 @@ describe('ItunesContainer Tests', () => {
   });
 
   it('should call dispatchSearchSongs on change', async () => {
-    const { getByTestId } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
+    const { getByTestId } = renderWithIntl(<ItunesContainer dispatchSearchSongs={mockDispatchSearch} />);
     fireEvent.change(getByTestId('search-bar'), {
       target: { value: 'Despacito' }
     });
@@ -63,13 +54,13 @@ describe('ItunesContainer Tests', () => {
       resultCount: 50,
       results: [{ songName: 'Song1' }, { songName: 'Song2' }]
     };
-    const { getByTestId } = renderProvider(<ItunesWrapper gridData={gridData} />);
+    const { getByTestId } = renderWithIntl(<ItunesContainer gridData={gridData} />);
     expect(getByTestId('for')).toBeInTheDocument();
   });
 
   it('should dispatchSearchSongs on load, if searchTerm is already persisted and avaiable', async () => {
     const searchTerm = 'Justin Beiber';
-    renderProvider(<ItunesWrapper searchTerm={searchTerm} dispatchSearchSongs={mockDispatchSearch} />);
+    renderWithIntl(<ItunesContainer searchTerm={searchTerm} dispatchSearchSongs={mockDispatchSearch} />);
     await timeout(500);
     expect(mockDispatchSearch).toBeCalled();
   });
@@ -92,8 +83,8 @@ describe('ItunesContainer Tests', () => {
   });
 
   it('should render the error message', async () => {
-    const { getByTestId } = renderProvider(
-      <ItunesWrapper dispatchSearchSongs={mockDispatchSearch} searchError="error" />
+    const { getByTestId } = renderWithIntl(
+      <ItunesContainer dispatchSearchSongs={mockDispatchSearch} searchError="error" />
     );
 
     await timeout(500);
@@ -101,9 +92,23 @@ describe('ItunesContainer Tests', () => {
   });
 
   it('should render the default message', async () => {
-    const { getByTestId } = renderProvider(<ItunesWrapper dispatchSearchSongs={mockDispatchSearch} />);
+    const { getByTestId } = renderWithIntl(<ItunesContainer dispatchSearchSongs={mockDispatchSearch} />);
 
     await timeout(500);
     expect(getByTestId('default-message')).toBeInTheDocument();
+  });
+
+  it('should make sure, the number of SongCard rendered should be equal to the number of Grid results', () => {
+    const resultCount = 3;
+    const gridData = {
+      resultCount,
+      results: [{ songName: 'Song1' }, { songName: 'song2' }, { songName: 'song3' }]
+    };
+
+    const { getAllByTestId } = renderWithIntl(
+      <ItunesContainer dispatchSearchSongs={mockDispatchSearch} gridData={gridData} />
+    );
+
+    expect(getAllByTestId('song-card')).toHaveLength(resultCount);
   });
 });
