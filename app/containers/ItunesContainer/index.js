@@ -130,7 +130,9 @@ export function ItunesContainer({
             data-testid="grid"
             of={songs}
             ParentComponent={MusicGrid}
-            renderItem={(song, index) => <SongCard song={song} key={index} onActionClick={handleActionClick} />}
+            renderItem={(song, index) => (
+              <SongCard data-testid="song-card" song={song} key={index} onActionClick={handleActionClick} />
+            )}
           />
         </Skeleton>
       </If>

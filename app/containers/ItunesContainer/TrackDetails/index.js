@@ -80,7 +80,7 @@ export function TrackDetails({
         <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
           <SongCard
             song={trackDetails}
-            trackDetails={true}
+            trackDetails
             width={width}
             height={height}
             padding={padding}
