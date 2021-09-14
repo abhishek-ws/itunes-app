@@ -45,7 +45,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           >
             <span
               aria-label="play-circle"
-              class="anticon anticon-play-circle SongCard__StyledPlayIcon-sc-163fh4j-8 hAhBDZ"
+              class="anticon anticon-play-circle SongCard__StyledPlayIcon-sc-163fh4j-8 eeAmGQ"
               role="img"
             >
               <svg

@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect, memo, useState } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
@@ -53,19 +53,6 @@ export function TrackDetails({
     dispatchTrackSearch(trackId);
   }, []);
 
-  const [currentTrack, setCurrentTrack] = useState(null);
-
-  const handleActionClick = (audioRef) => {
-    if (isEmpty(currentTrack)) {
-      setCurrentTrack(audioRef);
-    } else {
-      if (currentTrack != audioRef) {
-        currentTrack.current.src = '';
-        setCurrentTrack(audioRef);
-      }
-    }
-  };
-
   return (
     <Container>
       <If
@@ -73,14 +60,7 @@ export function TrackDetails({
         otherwise={<T data-testid="track-detail-error" id="something_went_wrong" />}
       >
         <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
-          <SongCard
-            song={trackDetails}
-            trackDetails
-            width={width}
-            height={height}
-            padding={padding}
-            onActionClick={handleActionClick}
-          />
+          <SongCard song={trackDetails} trackDetails width={width} height={height} padding={padding} />
         </Skeleton>
       </If>
       <Link to="/">
