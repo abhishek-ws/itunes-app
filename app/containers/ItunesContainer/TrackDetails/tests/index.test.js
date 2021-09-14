@@ -6,20 +6,11 @@
  */
 
 import React from 'react';
-import { timeout, renderProvider } from '@utils/testUtils';
-// import { fireEvent } from '@testing-library/dom'
+import { timeout, renderWithIntl } from '@utils/testUtils';
 import { mapDispatchToProps, TrackDetailsTest as TrackDetails } from '../index';
-import ReturnWithRouter from '@utils/returnRouter';
 import getIntl from '@utils/createIntl';
 import { setIntl } from '@app/components/IntlGlobalProvider/';
-
-function TrackDetailsWrapper(props) {
-  return (
-    <ReturnWithRouter>
-      <TrackDetails {...props} />
-    </ReturnWithRouter>
-  );
-}
+import { itunesContainerTypes } from '../../reducer';
 
 describe('<TrackDetails /> container tests', () => {
   let submitSpyTrackSearch;
@@ -34,21 +25,15 @@ describe('<TrackDetails /> container tests', () => {
   });
 
   it('should render and match the snapshot', () => {
-    const { baseElement } = renderProvider(
-      <TrackDetailsWrapper
-        dispatchTrackSearch={submitSpyTrackSearch}
-        dispatchClearTrackDetails={submitSpyClearTrackDetails}
-      />
+    const { baseElement } = renderWithIntl(
+      <TrackDetails dispatchTrackSearch={submitSpyTrackSearch} dispatchClearTrackDetails={submitSpyClearTrackDetails} />
     );
     expect(baseElement).toMatchSnapshot();
   });
 
   it('should dispatch ClearTrackDetails and SearchTrack in sequence when first mounted', async () => {
-    renderProvider(
-      <TrackDetailsWrapper
-        dispatchTrackSearch={submitSpyTrackSearch}
-        dispatchClearTrackDetails={submitSpyClearTrackDetails}
-      />
+    renderWithIntl(
+      <TrackDetails dispatchTrackSearch={submitSpyTrackSearch} dispatchClearTrackDetails={submitSpyClearTrackDetails} />
     );
     await timeout(500);
     expect(submitSpyClearTrackDetails).toBeCalled();
@@ -59,8 +44,8 @@ describe('<TrackDetails /> container tests', () => {
     const dispatchSearchSpy = jest.fn();
     const trackId = 1234;
     const actions = {
-      dispatchTrackSearch: { trackId: 1234, type: 'SEARCH_TRACK' },
-      dispatchClearTrackDetails: { type: 'CLEAR_TRACK_DETAILS' }
+      dispatchTrackSearch: { trackId, type: itunesContainerTypes.SEARCH_TRACK },
+      dispatchClearTrackDetails: { type: itunesContainerTypes.CLEAR_TRACK_DETAILS }
     };
     const props = mapDispatchToProps(dispatchSearchSpy);
     props.dispatchTrackSearch(trackId);
@@ -72,8 +57,8 @@ describe('<TrackDetails /> container tests', () => {
   });
 
   it('should render error when trackSearchError occurs', async () => {
-    const { getByTestId } = renderProvider(
-      <TrackDetailsWrapper
+    const { getByTestId } = renderWithIntl(
+      <TrackDetails
         dispatchTrackSearch={submitSpyTrackSearch}
         dispatchClearTrackDetails={submitSpyClearTrackDetails}
         trackSearchError="error"
