@@ -8,17 +8,8 @@ import React from 'react';
 import { fireEvent } from '@testing-library/dom';
 import { renderWithIntl } from '@utils/testUtils';
 import SongCard from '../index';
-import ReturnWithRouter from '@utils/returnRouter';
 import { setIntl, translate } from '@app/components/IntlGlobalProvider/';
 import getIntl from '@utils/createIntl';
-
-function SongWrapper(props) {
-  return (
-    <ReturnWithRouter>
-      <SongCard {...props} />
-    </ReturnWithRouter>
-  );
-}
 
 describe('<SongCard/> tests', () => {
   beforeAll(() => {
@@ -36,23 +27,23 @@ describe('<SongCard/> tests', () => {
   };
 
   it('should render and match the snapshot', () => {
-    const { baseElement } = renderWithIntl(<SongWrapper song={song} />);
+    const { baseElement } = renderWithIntl(<SongCard song={song} />);
     expect(baseElement).toMatchSnapshot();
   });
 
   it('should contain 1 SongCard component', () => {
-    const { getAllByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getAllByTestId } = renderWithIntl(<SongCard song={song} />);
     expect(getAllByTestId('song-card').length).toBe(1);
   });
 
   it('should play the song when "Play Button" clicked', () => {
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     fireEvent.click(getByTestId('play-btn'));
     expect(getByTestId('audio-element').src).toBe(song.previewUrl);
   });
 
   it('should stop the song when "Stop Button" clicked', () => {
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     fireEvent.click(getByTestId('stop-btn'));
     expect(getByTestId('audio-element').src).toBe('');
   });
@@ -69,7 +60,7 @@ describe('<SongCard/> tests', () => {
       previewUrl: 'https://mockurl.com/'
     };
 
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     expect(getByTestId('no-price-tag')).toHaveTextContent(translate('no-price'));
   });
 
@@ -85,7 +76,7 @@ describe('<SongCard/> tests', () => {
       previewUrl: 'https://mockurl.com/'
     };
 
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     expect(getByTestId('para-test')).toHaveTextContent(song.shortDescription);
   });
 
@@ -101,18 +92,18 @@ describe('<SongCard/> tests', () => {
       previewUrl: 'https://mockurl.com/'
     };
 
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     expect(getByTestId('para-test')).toHaveTextContent(song.shortDescription);
   });
 
   it('should disable the Play button once, song is played', () => {
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} onActionClick={jest.fn()} />);
     fireEvent.click(getByTestId('play-btn'));
     expect(getByTestId('play-btn')).toBeDisabled();
   });
 
   it('should disable the Stop button once, song is stopped', () => {
-    const { getByTestId } = renderWithIntl(<SongWrapper song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     fireEvent.click(getByTestId('stop-btn'));
     expect(getByTestId('stop-btn')).toBeDisabled();
   });
