@@ -37,7 +37,7 @@ describe('<SongCard/> tests', () => {
   });
 
   it('should play the song when "Play Button" clicked', () => {
-    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
+    const { getByTestId } = renderWithIntl(<SongCard song={song} onActionClick={jest.fn()} />);
     fireEvent.click(getByTestId('play-btn'));
     expect(getByTestId('audio-element').src).toBe(song.previewUrl);
   });

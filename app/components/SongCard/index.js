@@ -19,8 +19,8 @@ const { Paragraph } = Typography;
 
 const Container = styled(Card)`
   && {
-    width: ${(props) => (props.width ? props.width : 25)}em;
-    height: ${(props) => (props.height ? props.height : 32)}em;
+    width: ${(props) => props.width ?? 25}em;
+    height: ${(props) => props.height ?? 32}em;
     background-color: ${colors.songCardBg};
     display: block;
     border-radius: 2em;
@@ -89,7 +89,7 @@ const StyledImage = styled.img`
 
 const StyledPlayIcon = styled(PlayCircleTwoTone)`
   && {
-    fontsize: 18;
+    font-size: 18;
   }
 `;
 const StyledStopIcon = styled(StopTwoTone)`
@@ -115,13 +115,13 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
     }
   }, [songElement?.current?.paused]);
 
-  const handleMusic = async (action) => {
+  const handleMusic = (action) => {
     switch (action) {
       case actions.PLAY:
         songElement.current.src = previewUrl;
         setPlay(!play);
-        onActionClick(songElement);
-        await songElement.current.play();
+        trackDetails ?? onActionClick(songElement);
+        songElement.current.play();
         break;
       case actions.STOP:
         songElement.current.src = '';
