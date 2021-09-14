@@ -84,7 +84,7 @@ describe('<SongCard/> tests', () => {
     expect(getByTestId('para-test')).toHaveTextContent(song.longDescription);
   });
 
-  it('should disable the Play button once, song is played', async () => {
+  it('should disable-Enable the Play-Stop buttons once, song is played or stopped accordingly', async () => {
     let audio;
 
     const playFn = jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(() => {
@@ -112,12 +112,5 @@ describe('<SongCard/> tests', () => {
     expect(pauseFn).toBeCalled();
     expect(getByTestId('play-btn')).toBeEnabled();
     expect(getByTestId('stop-btn')).toBeDisabled();
-  });
-
-  it('should disable the Stop button once, song is stopped', () => {
-    const { getByTestId } = renderWithIntl(<SongCard song={song} />);
-    fireEvent.click(getByTestId('stop-btn'));
-    expect(getByTestId('stop-btn')).toBeDisabled();
-    expect(getByTestId('play-btn')).toBeEnabled();
   });
 });
