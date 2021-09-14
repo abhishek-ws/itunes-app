@@ -48,14 +48,6 @@ export function TrackDetails({
 }) {
   const { trackId } = useParams();
 
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (!isEmpty(trackSearchError)) {
-      setError(true);
-    }
-  }, []);
-
   useEffect(() => {
     dispatchClearTrackDetails();
     dispatchTrackSearch(trackId);
@@ -76,7 +68,10 @@ export function TrackDetails({
 
   return (
     <Container>
-      <If condition={!error} otherwise={<T data-testid="track-detail-error" id="something_went_wrong" />}>
+      <If
+        condition={isEmpty(trackSearchError)}
+        otherwise={<T data-testid="track-detail-error" id="something_went_wrong" />}
+      >
         <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
           <SongCard
             song={trackDetails}

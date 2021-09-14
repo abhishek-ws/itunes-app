@@ -83,7 +83,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           >
             <span
               aria-label="stop"
-              class="anticon anticon-stop SongCard__StyledStopIcon-sc-163fh4j-9 zxaUc"
+              class="anticon anticon-stop SongCard__StyledStopIcon-sc-163fh4j-9 Wcgcp"
               role="img"
             >
               <svg

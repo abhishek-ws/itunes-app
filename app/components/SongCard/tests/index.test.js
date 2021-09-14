@@ -85,7 +85,7 @@ describe('<SongCard/> tests', () => {
       trackName: 'Track',
       trackPrice: 200,
       trackId: 1234,
-      shortDescription: 'SongShortDescription',
+      longDescription: 'LongShortDescription',
       artworkUrl100:
         'https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk',
       artistName: 'Artist Name',
@@ -93,18 +93,20 @@ describe('<SongCard/> tests', () => {
     };
 
     const { getByTestId } = renderWithIntl(<SongCard song={song} />);
-    expect(getByTestId('para-test')).toHaveTextContent(song.shortDescription);
+    expect(getByTestId('para-test')).toHaveTextContent(song.longDescription);
   });
 
   it('should disable the Play button once, song is played', () => {
     const { getByTestId } = renderWithIntl(<SongCard song={song} onActionClick={jest.fn()} />);
     fireEvent.click(getByTestId('play-btn'));
     expect(getByTestId('play-btn')).toBeDisabled();
+    expect(getByTestId('stop-btn')).toBeEnabled();
   });
 
   it('should disable the Stop button once, song is stopped', () => {
     const { getByTestId } = renderWithIntl(<SongCard song={song} />);
     fireEvent.click(getByTestId('stop-btn'));
     expect(getByTestId('stop-btn')).toBeDisabled();
+    expect(getByTestId('play-btn')).toBeEnabled();
   });
 });

@@ -94,7 +94,7 @@ const StyledPlayIcon = styled(PlayCircleTwoTone)`
 `;
 const StyledStopIcon = styled(StopTwoTone)`
   && {
-    fontsize: 18;
+    font-size: 18;
   }
 `;
 
@@ -115,10 +115,10 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
     }
   }, [songElement?.current?.paused]);
 
-  const handleMusic = async (action, songUrl) => {
+  const handleMusic = async (action) => {
     switch (action) {
       case actions.PLAY:
-        songElement.current.src = songUrl;
+        songElement.current.src = previewUrl;
         setPlay(!play);
         onActionClick(songElement);
         await songElement.current.play();
@@ -149,7 +149,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
       <IconsContainer>
         <ControlButton
           data-testid="play-btn"
-          onClick={() => handleMusic(actions.PLAY, previewUrl)}
+          onClick={() => handleMusic(actions.PLAY)}
           disabled={play}
           type={play ? 'text' : 'ghost'}
           icon={<StyledPlayIcon />}
@@ -159,7 +159,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
         <ControlButton
           data-testid="stop-btn"
           disabled={!play}
-          onClick={() => handleMusic(actions.STOP, previewUrl)}
+          onClick={() => handleMusic(actions.STOP)}
           type={play ? 'ghost' : 'text'}
           icon={<StyledStopIcon />}
           size="large"
