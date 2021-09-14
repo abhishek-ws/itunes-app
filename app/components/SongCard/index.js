@@ -4,13 +4,13 @@
  *
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Typography, Button } from 'antd';
 import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
-import { translate } from '../IntlGlobalProvider/index';
+import { translate } from '@components/IntlGlobalProvider/';
 import { Link } from 'react-router-dom';
 import If from '@components/If';
 import { T } from '@components/T';
@@ -38,10 +38,6 @@ const IconsContainer = styled.div`
   width: 100%;
   justify-content: space-between;
 `;
-
-const commonIconStyle = {
-  fontSize: 18
-};
 
 const ControlButton = styled(Button)`
   && {
@@ -91,11 +87,22 @@ const StyledImage = styled.img`
   margin-bottom: 2em;
 `;
 
+const StyledPlayIcon = styled(PlayCircleTwoTone)`
+  && {
+    fontsize: 18;
+  }
+`;
+const StyledStopIcon = styled(StopTwoTone)`
+  && {
+    fontsize: 18;
+  }
+`;
+
 export function SongCard({ song, trackDetails, width, height, onActionClick }) {
   const { trackName, trackPrice, artworkUrl100, previewUrl, trackId } = song;
 
-  const [play, setPlay] = useState(false);
   const songElement = useRef(null);
+  const [play, setPlay] = useState(false);
 
   const actions = {
     PLAY: 'playMusic',
@@ -106,7 +113,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
     if (songElement.current.paused) {
       setPlay(false);
     }
-  });
+  }, [songElement?.current?.paused]);
 
   const handleMusic = async (action, songUrl) => {
     switch (action) {
@@ -145,7 +152,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
           onClick={() => handleMusic(actions.PLAY, previewUrl)}
           disabled={play}
           type={play ? 'text' : 'ghost'}
-          icon={<PlayCircleTwoTone style={commonIconStyle} />}
+          icon={<StyledPlayIcon />}
         >
           {translate('play-btn')}
         </ControlButton>
@@ -154,7 +161,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
           disabled={!play}
           onClick={() => handleMusic(actions.STOP, previewUrl)}
           type={play ? 'ghost' : 'text'}
-          icon={<StopTwoTone style={commonIconStyle} />}
+          icon={<StyledStopIcon />}
           size="large"
         >
           {translate('stop-btn')}
@@ -171,7 +178,15 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
 }
 
 SongCard.propTypes = {
-  song: PropTypes.object,
+  song: PropTypes.shape({
+    trackId: PropTypes.number,
+    artworkUrl100: PropTypes.string,
+    trackPrice: PropTypes.number,
+    shortDescription: PropTypes.string,
+    longDescription: PropTypes.string,
+    previewUrl: PropTypes.string,
+    trackName: PropTypes.string
+  }),
   width: PropTypes.number,
   height: PropTypes.number,
   trackDetails: PropTypes.bool,
