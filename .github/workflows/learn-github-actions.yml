@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node: ['10', '12', '14', '16']
-      name: Name ${{ matrix.node }}
+    name: Name ${{ matrix.node }}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2
