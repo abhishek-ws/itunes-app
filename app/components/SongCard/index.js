@@ -52,14 +52,14 @@ const ControlButton = styled(Button)`
 
 const StyledT = styled(T)`
   && {
-    font-size: ${(props) => (props.trackDetails ? 2 : 1.1)}em;
-    margin: ${(props) => (props.trackDetails ? '20 0' : 0)};
+    font-size: ${(props) => (props.full ? 2 : 1.1)}em;
+    margin: ${(props) => (props.full ? '20 0' : 0)};
   }
 `;
 const StyledPrice = styled(T)`
   && {
     color: ${colors.styledPriceColor};
-    font-size: ${(props) => (props.trackDetails ? 40 : 16)};
+    font-size: ${(props) => (props.full ? 2.2 : 1.2)}em;
     margin: 20 10;
   }
 `;
@@ -68,8 +68,8 @@ const StyledParagraph = styled(Paragraph)`
   && {
     margin-top: 10;
     color: ${colors.styledParaColor};
-    font-size: ${(props) => (props.trackDetails ? 1.5 : 1)}em;
-    height: ${(props) => (props.full ? 7 : 4.5)}em;
+    font-size: ${(props) => (props.full ? 1.5 : 1)}em;
+    height: ${(props) => (props.shortdescription ? 7 : 4.5)}em;
     overflow: hidden;
   }
 `;
@@ -122,11 +122,11 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
         <Link to={`/details/${trackId}`}>
-          <StyledT trackDetails={trackDetails} text={trackName} />
+          <StyledT full={trackDetails} text={trackName} />
         </Link>
       </HeaderFooter>
 
-      <StyledParagraph data-testid="para-test" trackDetails={trackDetails} full={song.shortDescription}>
+      <StyledParagraph data-testid="para-test" full={trackDetails} shortdescription={song.shortDescription}>
         <If
           condition={song.shortDescription}
           otherwise={song.longDescription ? song.longDescription : translate('no_description')}
@@ -156,8 +156,11 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
         </ControlButton>
       </IconsContainer>
       <HeaderFooter>
-        <If condition={trackPrice} otherwise={<StyledPrice data-testid="no-price-tag" id="no-price" />}>
-          <StyledPrice id="track-price" values={{ trackPrice }} />
+        <If
+          condition={trackPrice}
+          otherwise={<StyledPrice data-testid="no-price-tag" id="no-price" full={trackDetails} />}
+        >
+          <StyledPrice id="track-price" values={{ trackPrice }} full={trackDetails} />
         </If>
       </HeaderFooter>
       <audio data-testid="audio-element" src={previewUrl} ref={songElement}></audio>

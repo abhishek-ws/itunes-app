@@ -11,17 +11,17 @@ import Clickable from '../index';
 
 describe('<Clickable /> component tests', () => {
   it('should render and match the snapshot', () => {
-    const { baseElement } = renderWithIntl(<Clickable />);
+    const { baseElement } = renderWithIntl(<Clickable textId="list_songs" onClick={jest.fn()} />);
     expect(baseElement).toMatchSnapshot();
   });
 
   it('should contain 1 Clickable component', () => {
-    const { getAllByTestId } = renderWithIntl(<Clickable />);
+    const { getAllByTestId } = renderWithIntl(<Clickable textId="list_songs" onClick={jest.fn()} />);
     expect(getAllByTestId('clickable').length).toBe(1);
   });
 
   it('should contain render the text according to the textId', () => {
-    const { getAllByText } = renderWithIntl(<Clickable textId="list_songs" />);
+    const { getAllByText } = renderWithIntl(<Clickable textId="list_songs" onClick={jest.fn()} />);
     expect(getAllByText(/List of songs will appear below/).length).toBe(1);
   });
 

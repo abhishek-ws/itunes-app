@@ -39,7 +39,7 @@ describe('<SongCard/> tests', () => {
   it('should render No-price translation when trackPrice is not available', () => {
     const song = {
       trackName: 'Track',
-      trackPrice: '',
+      trackPrice: null,
       trackId: 1234,
       shortDescription: 'Song Description',
       artworkUrl100:
