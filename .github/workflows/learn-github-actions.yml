@@ -28,3 +28,14 @@ jobs:
           node-version: '10'
       - run: yarn global add bats
       - run: bats -v
+
+jobs:
+  bats-version-node-14:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '10'
+      - run: yarn global add bats
+      - run: bats -v
