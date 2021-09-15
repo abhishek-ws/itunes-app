@@ -109,8 +109,8 @@ export function ItunesContainer({
     if (currentTrack?.current?.src !== audioRef?.current.src) {
       setCurrentTrack(audioRef);
     }
-    const isPaused = currentTrack?.current.paused;
-    if (!isPaused && currentTrack?.current?.src !== audioRef?.current.src) {
+    const isPaused = audioRef?.current?.paused;
+    if (!isEmpty(currentTrack) && !isPaused && currentTrack?.current?.src !== audioRef?.current.src) {
       currentTrack.current.pause();
     }
   };
