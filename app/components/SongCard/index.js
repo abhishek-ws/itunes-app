@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { Card, Typography, Button } from 'antd';
 import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
-import { translate } from '@components/IntlGlobalProvider/';
+import { translate } from '@components/IntlGlobalProvider';
 import { Link } from 'react-router-dom';
 import If from '@components/If';
 import { T } from '@components/T';
@@ -53,7 +53,7 @@ const ControlButton = styled(Button)`
 const StyledT = styled(T)`
   && {
     font-size: ${(props) => (props.full ? 2 : 1.1)}em;
-    margin: ${(props) => (props.full ? '20 0' : 0)};
+    margin: ${(props) => (props.full ? '20 0' : 0)}px;
   }
 `;
 const StyledPrice = styled(T)`

@@ -21,7 +21,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
             href="/details/1234"
           >
             <p
-              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 gjIxDk"
+              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 dIaPEU"
               data-testid="t"
             >
               Track
