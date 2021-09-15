@@ -19,6 +19,7 @@ const { Paragraph } = Typography;
 
 const Container = styled(Card)`
   && {
+    margin-top: 1em;
     width: ${(props) => props.width ?? 25}em;
     height: ${(props) => props.height ?? 32}em;
     background-color: ${colors.songCardBg};
@@ -28,6 +29,40 @@ const Container = styled(Card)`
     overflow-x: scroll;
     &::-webkit-scrollbar {
       display: none;
+    }
+    @media (max-width: 1240px) {
+      width: ${(props) => props.width ?? 22}em;
+      height: ${(props) => props.height ?? 28}em;
+    }
+    @media (max-width: 1110px) {
+      width: ${(props) => props.width ?? 20}em;
+      height: ${(props) => props.height ?? 26}em;
+    }
+    @media (max-width: 1047px) {
+      width: ${(props) => props.width ?? 18}em;
+      height: ${(props) => props.height ?? 26}em;
+    }
+    @media (max-width: 956px) {
+      width: ${(props) => props.width ?? 17}em;
+      height: ${(props) => props.height ?? 28}em;
+    }
+    @media (max-width: 920px) {
+      width: ${(props) => props.width ?? 24}em;
+      height: ${(props) => props.height ?? 27}em;
+    }
+    @media (max-width: 870px) {
+      width: ${(props) => (props.width ? 35 : 20)}em;
+      height: ${(props) => props.height ?? 27}em;
+    }
+    @media (max-width: 750px) {
+      width: ${(props) => (props.width ? 32 : 17)}em;
+      height: ${(props) => props.height ?? 28}em;
+    }
+    @media (max-width: 634px) {
+      width: ${(props) => (props.width ? 32 : 26)}em;
+    }
+    @media (max-width: 530px) {
+      width: ${(props) => (props.width ? 25 : 22)}em;
     }
   }
 `;
@@ -47,6 +82,26 @@ const ControlButton = styled(Button)`
     justify-content: space-between;
     align-items: center;
     background-color: transparent;
+    @media (max-width: 1240px) {
+      width: 6em;
+      height: 2em;
+    }
+    @media (max-width: 1110px) {
+      width: 5.5em;
+      height: 1.6em;
+    }
+    @media (max-width: 956px) {
+      width: 5.2em;
+      height: 1.5em;
+    }
+    @media (max-width: 920px) {
+      width: 6em;
+      height: 2em;
+    }
+    @media (max-width: 750px) {
+      width: 5.5em;
+      height: 2em;
+    }
   }
 `;
 
@@ -54,12 +109,24 @@ const StyledT = styled(T)`
   && {
     font-size: ${(props) => (props.full ? 2 : 1.1)}em;
     margin: ${(props) => (props.full ? '20 0' : 0)}px;
+    @media (max-width: 1240px) {
+      font-size: ${(props) => (props.full ? 2 : 1)}em;
+    }
+    @media (max-width: 1110px) {
+      font-size: ${(props) => (props.full ? 2 : 0.9)}em;
+    }
+    @media (max-width: 956px) {
+      font-size: ${(props) => (props.full ? 2 : 0.8)}em;
+    }
+    @media (max-width: 920px) {
+      font-size: ${(props) => (props.full ? 2 : 1.2)}em;
+    }
   }
 `;
 const StyledPrice = styled(T)`
   && {
     color: ${colors.styledPriceColor};
-    font-size: ${(props) => (props.full ? 2.2 : 1.2)}em;
+    font-size: ${(props) => (props.full ? 2.2 : 1)}em;
     margin: 20 10;
   }
 `;
@@ -69,8 +136,22 @@ const StyledParagraph = styled(Paragraph)`
     margin-top: 10;
     color: ${colors.styledParaColor};
     font-size: ${(props) => (props.full ? 1.5 : 1)}em;
-    height: ${(props) => (props.shortdescription ? 7 : 4.5)}em;
+    height: ${(props) => (props.shortdescription ? 5 : 4.5)}em;
     overflow: hidden;
+    @media (max-width: 1240px) {
+      font-size: ${(props) => (props.full ? 1.5 : 0.7)}em;
+    }
+    @media (max-width: 1110px) {
+      font-size: ${(props) => (props.full ? 1.5 : 0.62)}em;
+    }
+    @media (max-width: 956px) {
+      font-size: ${(props) => (props.full ? 1.5 : 0.6)}em;
+      height: ${(props) => (props.shortdescription ? 7 : 5)}em;
+    }
+    @media (max-width: 920px) {
+      font-size: ${(props) => (props.full ? 1.5 : 0.8)}em;
+      height: ${(props) => (props.shortdescription ? 7 : 4)}em;
+    }
   }
 `;
 
@@ -90,6 +171,9 @@ const StyledImage = styled.img`
 const StyledPlayIcon = styled(PlayCircleTwoTone)`
   && {
     font-size: 18px;
+  }
+  @media (max-width: 956px) {
+    font-size: 10px;
   }
 `;
 const StyledStopIcon = styled(StopTwoTone)`

@@ -4,7 +4,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 rEpnk"
+      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 kcwXDM"
       data-testid="song-card"
     >
       <div
@@ -21,7 +21,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
             href="/details/1234"
           >
             <p
-              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 dIaPEU"
+              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 kRVWGB"
               data-testid="t"
             >
               Track
@@ -29,7 +29,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           </a>
         </div>
         <div
-          class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 ctnAOd"
+          class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 faSVDW"
           data-testid="para-test"
           shortdescription="Song Description"
         >
@@ -39,13 +39,13 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           class="SongCard__IconsContainer-sc-163fh4j-1 fJrksM"
         >
           <button
-            class="ant-btn ant-btn-ghost SongCard__ControlButton-sc-163fh4j-2 dcxDWV"
+            class="ant-btn ant-btn-ghost SongCard__ControlButton-sc-163fh4j-2 hJMAA-D"
             data-testid="play-btn"
             type="button"
           >
             <span
               aria-label="play-circle"
-              class="anticon anticon-play-circle SongCard__StyledPlayIcon-sc-163fh4j-8 fAvZDo"
+              class="anticon anticon-play-circle SongCard__StyledPlayIcon-sc-163fh4j-8 kyovNP"
               role="img"
             >
               <svg
@@ -76,7 +76,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
             </span>
           </button>
           <button
-            class="ant-btn ant-btn-text ant-btn-lg SongCard__ControlButton-sc-163fh4j-2 dcxDWV"
+            class="ant-btn ant-btn-text ant-btn-lg SongCard__ControlButton-sc-163fh4j-2 hJMAA-D"
             data-testid="stop-btn"
             disabled=""
             type="button"
@@ -114,7 +114,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           class="SongCard__HeaderFooter-sc-163fh4j-6 bBcspZ"
         >
           <p
-            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 hWFNmO"
+            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 ceYXZO"
             data-testid="t"
           >
             $ 200
