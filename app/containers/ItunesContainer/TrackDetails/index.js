@@ -10,19 +10,19 @@ import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import { useParams } from 'react-router';
 import { Skeleton } from 'antd';
-import SongCard from '@app/components/SongCard/index';
 import styled from 'styled-components';
-import T from '@app/components/T/index';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
-import { selectItunesContainer, selectTrackDetails, selectTrackSearchError } from '../selectors';
+import { Link } from 'react-router-dom';
+import SongCard from '@app/components/SongCard';
+import T from '@app/components/T';
+import { colors } from '@app/themes';
+import If from '@components/If';
+import { isEmpty } from 'lodash';
 import itunesContainerSaga from '../saga';
 import { itunesContainerCreators } from '../reducer';
-import { Link } from 'react-router-dom';
-import { colors } from '@app/themes';
-import If from '@components/If/index';
-import { isEmpty } from 'lodash';
+import { selectItunesContainer, selectTrackDetails, selectTrackSearchError } from '../selectors';
 
 const Container = styled.div`
   display: grid;

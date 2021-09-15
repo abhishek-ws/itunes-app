@@ -89,12 +89,12 @@ const StyledImage = styled.img`
 
 const StyledPlayIcon = styled(PlayCircleTwoTone)`
   && {
-    font-size: 18;
+    font-size: 18px;
   }
 `;
 const StyledStopIcon = styled(StopTwoTone)`
   && {
-    font-size: 18;
+    font-size: 18px;
   }
 `;
 

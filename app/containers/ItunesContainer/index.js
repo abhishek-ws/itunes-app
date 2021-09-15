@@ -1,4 +1,5 @@
 import React, { useEffect, memo, useState } from 'react';
+import { injectSaga } from 'redux-injectors';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -6,18 +7,17 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import { colors } from '@app/themes';
-import { Card, Skeleton, Input } from 'antd';
-import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
+import styled from 'styled-components';
+import { Card, Skeleton, Input } from 'antd';
+import { colors } from '@app/themes';
 import T from '@components/T';
-import { injectSaga } from 'redux-injectors';
-import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
-import { itunesContainerCreators } from './reducer';
-import itunesContainerSaga from './saga';
 import SongCard from '@app/components/SongCard';
 import If from '@components/If';
 import For from '@components/For';
+import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
+import { itunesContainerCreators } from './reducer';
+import itunesContainerSaga from './saga';
 
 const { Search } = Input;
 
@@ -96,7 +96,6 @@ export function ItunesContainer({
 
   const handleOnChange = (searchTerm) => {
     if (!isEmpty(searchTerm)) {
-      // console.log('Something');
       dispatchSearchSongs(searchTerm);
       setLoading(true);
     } else {
