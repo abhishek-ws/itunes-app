@@ -1,0 +1,16 @@
+name: CI Test
+on: [push]
+jobs:
+  Test-Multiple-node-envs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['12', '14', '16']
+    steps:
+      - use: actions/checkout@v2
+      - name: Lint Code
+        run: yarn lint
+      - name: Test App
+        run: yarn test
+      - name: Build App
+        run: yarn build
