@@ -1,21 +1,23 @@
 name: CI Test
 on:
   pull_request:
-    branches: [master, feat/trackDetails-itunes]
+    branches:
+      - master
+      - feat/trackDetails-itunes
 jobs:
   Test-Multiple-node-envs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: ['12', '14', '16']
-    name: Running on node version ${{matrix.node}}
+    name: Running on node version ${{ matrix.node }}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{matrix.node}}
+          node-version: ${{ matrix.node }}
           cache: 'yarn'
       - name: Install dependencies
         run: yarn
