@@ -10,7 +10,7 @@ import isEmpty from 'lodash/isEmpty';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import { Card, Skeleton, Input } from 'antd';
-import { colors } from '@app/themes';
+import { colors, media } from '@app/themes';
 import T from '@components/T';
 import SongCard from '@app/components/SongCard';
 import If from '@components/If';
@@ -57,32 +57,44 @@ const MusicGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 0.5em;
   grid-row-gap: 3em;
-  @media (max-width: 1184px) {
-    grid-column-gap: 0.5em;
-    grid-row-gap: 2.8em;
-  }
-  @media (max-width: 1046px) {
-    grid-column-gap: 0.4em;
-    grid-row-gap: 2.8em;
-  }
-  @media (max-width: 956px) {
-    grid-column-gap: 0.2em;
-    grid-row-gap: 2.2em;
-  }
-  @media (max-width: 920px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 1em;
-    grid-row-gap: 2.2em;
-  }
-  @media (max-width: 870px) {
-    grid-column-gap: 0.8em;
-    grid-row-gap: 2.2em;
-  }
-  @media (max-width: 634px) {
-    grid-template-columns: repeat(1, 1fr);
-    place-items: center;
-  }
+  place-items: center;
+
+  ${media.lessThan('desktop')`
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 2.2em;
+`}
+  ${media.lessThan('tablet')`
+  grid-template-columns: repeat(1, 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 2.2em;
+`}
 `;
+
+// @media (max-width: 1184px) {
+//   grid-column-gap: 0.5em;
+//   grid-row-gap: 2.8em;
+// }
+// @media (max-width: 1046px) {
+//   grid-column-gap: 0.4em;
+//   grid-row-gap: 2.8em;
+// }
+// @media (max-width: 956px) {
+
+// }
+// @media (max-width: 920px) {
+//   grid-template-columns: repeat(2, 1fr);
+//   grid-column-gap: 1em;
+//   grid-row-gap: 2.2em;
+// }
+// @media (max-width: 870px) {
+//   grid-column-gap: 0.8em;
+//   grid-row-gap: 2.2em;
+// }
+// @media (max-width: 634px) {
+//   grid-template-columns: repeat(1, 1fr);
+//   place-items: center;
+// }
 
 const StyledT = styled(T)`
   && {

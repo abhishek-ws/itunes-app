@@ -14,14 +14,15 @@ import { translate } from '@components/IntlGlobalProvider';
 import { Link } from 'react-router-dom';
 import If from '@components/If';
 import { T } from '@components/T';
+import media from '@app/themes/media';
 
 const { Paragraph } = Typography;
 
 const Container = styled(Card)`
   && {
-    margin-top: 1em;
-    width: ${(props) => props.width ?? 25}em;
+    width: ${(props) => props.width ?? 20}em;
     height: ${(props) => props.height ?? 32}em;
+    margin-top: 1em;
     background-color: ${colors.songCardBg};
     display: block;
     border-radius: 2em;
@@ -30,40 +31,24 @@ const Container = styled(Card)`
     &::-webkit-scrollbar {
       display: none;
     }
-    @media (max-width: 1240px) {
-      width: ${(props) => props.width ?? 22}em;
-      height: ${(props) => props.height ?? 28}em;
-    }
-    @media (max-width: 1110px) {
-      width: ${(props) => props.width ?? 20}em;
-      height: ${(props) => props.height ?? 26}em;
-    }
-    @media (max-width: 1047px) {
-      width: ${(props) => props.width ?? 18}em;
-      height: ${(props) => props.height ?? 26}em;
-    }
-    @media (max-width: 956px) {
-      width: ${(props) => props.width ?? 17}em;
-      height: ${(props) => props.height ?? 28}em;
-    }
-    @media (max-width: 920px) {
-      width: ${(props) => props.width ?? 24}em;
-      height: ${(props) => props.height ?? 27}em;
-    }
-    @media (max-width: 870px) {
-      width: ${(props) => (props.width ? 35 : 20)}em;
-      height: ${(props) => props.height ?? 27}em;
-    }
-    @media (max-width: 750px) {
-      width: ${(props) => (props.width ? 32 : 17)}em;
-      height: ${(props) => props.height ?? 28}em;
-    }
-    @media (max-width: 634px) {
-      width: ${(props) => (props.width ? 32 : 26)}em;
-    }
-    @media (max-width: 530px) {
-      width: ${(props) => (props.width ? 25 : 22)}em;
-    }
+
+    ${media.lessThan('desktop')`
+    width: ${(props) => (props.width ? 32 : 22)}em;
+    height: ${(props) => props.height ?? 34}em;;
+  `}
+    ${media.lessThan('tablet')`
+    width: ${(props) => (props.width ? 30 : 22)}em;
+    height: ${(props) => props.height ?? 34}em;;
+    `}
+    
+    ${media.lessThan('mid')`
+    width: ${(props) => (props.width ? 20 : 16)}em;
+    height: ${(props) => props.height ?? 34}em;;
+    `}
+    ${media.lessThan('mobile')`
+    width: ${(props) => (props.width ? 15 : 15)}em;
+    height: ${(props) => props.height ?? 30}em;;
+  `}
   }
 `;
 
@@ -72,6 +57,9 @@ const IconsContainer = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  ${media.lessThan('mid')`
+    flex-direction:column;
+    `}
 `;
 
 const ControlButton = styled(Button)`
@@ -82,52 +70,44 @@ const ControlButton = styled(Button)`
     justify-content: space-between;
     align-items: center;
     background-color: transparent;
-    @media (max-width: 1240px) {
+    width: 6em;
+    height: 2em;
+    ${media.lessThan('mid')`
+      margin-top: 8px;
       width: 6em;
       height: 2em;
-    }
-    @media (max-width: 1110px) {
-      width: 5.5em;
-      height: 1.6em;
-    }
-    @media (max-width: 956px) {
-      width: 5.2em;
-      height: 1.5em;
-    }
-    @media (max-width: 920px) {
-      width: 6em;
-      height: 2em;
-    }
-    @media (max-width: 750px) {
-      width: 5.5em;
-      height: 2em;
-    }
+    `}
   }
 `;
 
 const StyledT = styled(T)`
   && {
-    font-size: ${(props) => (props.full ? 2 : 1.1)}em;
-    margin: ${(props) => (props.full ? '20 0' : 0)}px;
-    @media (max-width: 1240px) {
-      font-size: ${(props) => (props.full ? 2 : 1)}em;
-    }
-    @media (max-width: 1110px) {
-      font-size: ${(props) => (props.full ? 2 : 0.9)}em;
-    }
-    @media (max-width: 956px) {
-      font-size: ${(props) => (props.full ? 2 : 0.8)}em;
-    }
-    @media (max-width: 920px) {
-      font-size: ${(props) => (props.full ? 2 : 1.2)}em;
-    }
+    font-size: ${(props) => (props.trackdetails ? 2 : 1.1)}em;
+    margin: ${(props) => (props.trackdetails ? '20 0' : 0)}px;
+    ${media.lessThan('desktop')`
+      font-size: ${(props) => (props.trackdetails ? 1.5 : 1.1)}em;
+    `}
+    ${media.lessThan('tablet')`
+      font-size: ${(props) => (props.trackdetails ? 1.4 : 1.1)}em;
+    `}
+    ${media.lessThan('mid')`
+      font-size: ${(props) => (props.trackdetails ? 1 : 1.1)}em;
+    `}
+    ${media.lessThan('mobile')`
+      font-size: ${(props) => (props.trackdetails ? 0.9 : 1.1)}em;
+    `}
   }
 `;
+
 const StyledPrice = styled(T)`
   && {
     color: ${colors.styledPriceColor};
     font-size: ${(props) => (props.full ? 2.2 : 1)}em;
-    margin: 20 10;
+    margin: 20px 10px;
+    ${media.lessThan('tablet')`
+      margin-top: 26px;
+      font-size: ${(props) => (props.full ? 1.4 : 1)}em;
+    `}
   }
 `;
 
@@ -135,24 +115,24 @@ const StyledParagraph = styled(Paragraph)`
   && {
     margin-top: 10;
     color: ${colors.styledParaColor};
-    font-size: ${(props) => (props.full ? 1.5 : 1)}em;
+    font-size: ${(props) => (props.trackdetails ? 2 : 1)}em;
     height: ${(props) => (props.shortdescription ? 5 : 4.5)}em;
     overflow: hidden;
-    @media (max-width: 1240px) {
-      font-size: ${(props) => (props.full ? 1.5 : 0.7)}em;
-    }
-    @media (max-width: 1110px) {
-      font-size: ${(props) => (props.full ? 1.5 : 0.62)}em;
-    }
-    @media (max-width: 956px) {
-      font-size: ${(props) => (props.full ? 1.5 : 0.6)}em;
-      height: ${(props) => (props.shortdescription ? 7 : 5)}em;
-    }
-    @media (max-width: 920px) {
-      font-size: ${(props) => (props.full ? 1.5 : 0.8)}em;
-      height: ${(props) => (props.shortdescription ? 7 : 4)}em;
-    }
-  }
+    ${media.greaterThan('desktop')`
+    font-size: ${(props) => (props.trackdetails ? 1.5 : 0.7)}em;
+    `}
+    ${media.lessThan('desktop')`
+    font-size: ${(props) => (props.trackdetails ? 1.2 : 0.7)}em;
+    `}
+    ${media.lessThan('tablet')`
+    font-size: ${(props) => (props.trackdetails ? 1 : 0.7)}em;
+    height: ${(props) => (props.shortdescription ? 5 : 6)}em;
+    `}
+    ${media.lessThan('mid')`
+    font-size: ${(props) => (props.trackdetails ? 0.78 : 0.8)}em;
+    height: ${(props) => (props.shortdescription ? 7 : 8)}em;
+    `}
+   
 `;
 
 const HeaderFooter = styled.div`
@@ -171,14 +151,17 @@ const StyledImage = styled.img`
 const StyledPlayIcon = styled(PlayCircleTwoTone)`
   && {
     font-size: 18px;
-  }
-  @media (max-width: 956px) {
-    font-size: 10px;
+    ${media.lessThan('mid')`
+    font-size: 12px;
+    `}
   }
 `;
 const StyledStopIcon = styled(StopTwoTone)`
   && {
     font-size: 18px;
+    ${media.lessThan('mid')`
+    font-size: 12px;
+    `}
   }
 `;
 
@@ -206,11 +189,11 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
         <Link to={`/details/${trackId}`}>
-          <StyledT full={trackDetails} text={trackName} />
+          <StyledT trackdetails={trackDetails} text={trackName} />
         </Link>
       </HeaderFooter>
 
-      <StyledParagraph data-testid="para-test" full={trackDetails} shortdescription={song.shortDescription}>
+      <StyledParagraph data-testid="para-test" trackdetails={trackDetails} shortdescription={song.shortDescription}>
         <If
           condition={song.shortDescription}
           otherwise={song.longDescription ? song.longDescription : translate('no_description')}
