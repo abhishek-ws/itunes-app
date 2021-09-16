@@ -12,6 +12,7 @@ const success = '#28a745';
 const error = '#dc3545';
 const songCardBg = '#434';
 const musicGridBg = '#434122';
+const styledPriceColor = '#fafafa';
 const styledTColor = '#fafafa';
 const styledPrice = '#fafafa';
 const styledParaColor = 'lightblue';
@@ -27,8 +28,9 @@ const colors = {
   error,
   songCardBg,
   musicGridBg,
-  styledTColor,
+  styledPriceColor,
   styledParaColor,
+  styledTColor,
   backToHome,
   styledPrice,
   theme: {

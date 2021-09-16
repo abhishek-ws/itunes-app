@@ -5,20 +5,27 @@
  */
 import produce from 'immer';
 import { createActions } from 'reduxsauce';
-import get from 'lodash/get';
-import { translate } from '@app/components/IntlGlobalProvider/';
 
 export const initialState = {
   searchTerm: null,
+  trackId: null,
   gridData: {},
-  searchError: null
+  trackDetails: {},
+  songsCache: {},
+  searchError: null,
+  trackSearchError: null
 };
 
 export const { Types: itunesContainerTypes, Creators: itunesContainerCreators } = createActions({
   searchItunes: ['searchTerm'],
   successSearchItunes: ['data'],
   failureSearchItunes: ['error'],
-  clearGridData: {}
+  searchTrack: ['trackId'],
+  successSearchTrack: ['response'],
+  failureSearchTrack: ['error'],
+  trackDetails: {},
+  clearGridData: {},
+  clearTrackDetails: {}
 });
 
 /* eslint-disable default-case, no-param-reassign */
@@ -35,11 +42,29 @@ export const itunesContainerReducer = (state = initialState, action) =>
       case itunesContainerTypes.FAILURE_SEARCH_ITUNES:
         draft.gridData = {};
         draft.searchTerm = null;
-        draft.searchError = get(action.error, 'originalError.message', translate('something_went_wrong'));
+        draft.searchError = action.error;
         break;
       case itunesContainerTypes.CLEAR_GRID_DATA:
         draft.searchTerm = null;
         draft.gridData = {};
+        break;
+      case itunesContainerTypes.SEARCH_TRACK:
+        draft.trackSearchError = null;
+        draft.trackDetails = {};
+        draft.trackId = action.trackId;
+        break;
+      case itunesContainerTypes.SUCCESS_SEARCH_TRACK:
+        draft.trackDetails = {};
+        draft.trackSearchError = null;
+        draft.songsCache[draft.trackId] = action.response.data;
+        draft.trackDetails = action.response.trackDetails;
+        break;
+      case itunesContainerTypes.FAILURE_SEARCH_TRACK:
+        draft.trackDetails = {};
+        draft.trackSearchError = action.error;
+        break;
+      case itunesContainerTypes.CLEAR_TRACK_DETAILS:
+        draft.trackDetails = {};
         break;
     }
   });

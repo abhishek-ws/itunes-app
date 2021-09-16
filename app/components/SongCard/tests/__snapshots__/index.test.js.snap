@@ -4,7 +4,7 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 rEpnk"
+      class="ant-card ant-card-bordered SongCard__Container-sc-163fh4j-0 flwanZ"
       data-testid="song-card"
     >
       <div
@@ -17,31 +17,36 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
             class="SongCard__StyledImage-sc-163fh4j-7 egedQz"
             src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
           />
-          <p
-            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 gjIxDk"
-            data-testid="t"
-          />
+          <a
+            href="/details/1234"
+          >
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 Yqokq"
+              data-testid="t"
+            >
+              Track
+            </p>
+          </a>
         </div>
         <div
-          class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 ctnAOd"
+          class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 khxwmq"
           data-testid="para-test"
           shortdescription="Song Description"
         >
           Song Description
         </div>
         <div
-          class="SongCard__IconsContainer-sc-163fh4j-1 fJrksM"
+          class="SongCard__IconsContainer-sc-163fh4j-1 joalXO"
         >
           <button
-            class="ant-btn ant-btn-ghost SongCard__ControlButton-sc-163fh4j-2 dcxDWV"
+            class="ant-btn ant-btn-ghost SongCard__ControlButton-sc-163fh4j-2 hpPnpo"
             data-testid="play-btn"
             type="button"
           >
             <span
               aria-label="play-circle"
-              class="anticon anticon-play-circle"
+              class="anticon anticon-play-circle SongCard__StyledPlayIcon-sc-163fh4j-8 eVYOVd"
               role="img"
-              style="font-size: 18px;"
             >
               <svg
                 aria-hidden="true"
@@ -71,16 +76,15 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
             </span>
           </button>
           <button
-            class="ant-btn ant-btn-text ant-btn-lg SongCard__ControlButton-sc-163fh4j-2 dcxDWV"
+            class="ant-btn ant-btn-text ant-btn-lg SongCard__ControlButton-sc-163fh4j-2 hpPnpo"
             data-testid="stop-btn"
             disabled=""
             type="button"
           >
             <span
               aria-label="stop"
-              class="anticon anticon-stop"
+              class="anticon anticon-stop SongCard__StyledStopIcon-sc-163fh4j-9 dtpWLo"
               role="img"
-              style="font-size: 18px;"
             >
               <svg
                 aria-hidden="true"
@@ -110,14 +114,15 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
           class="SongCard__HeaderFooter-sc-163fh4j-6 bBcspZ"
         >
           <p
-            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 zUpYc"
-            data-testid="no-price-tag"
+            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledPrice-sc-163fh4j-4 bnEWnz"
+            data-testid="t"
           >
-            no-price
+            $ 200
           </p>
         </div>
         <audio
           data-testid="audio-element"
+          src="https://mockurl.com/"
         />
       </div>
     </div>

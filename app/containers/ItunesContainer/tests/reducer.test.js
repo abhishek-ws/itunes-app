@@ -58,4 +58,59 @@ describe('ItunesContainer reducer tests', () => {
       })
     ).toEqual(expectedResult);
   });
+
+  it('should ensure that SEARCH_TRACK updates the value of trackId', () => {
+    const trackId = 1234;
+    const expectedResult = { ...state, trackId };
+    expect(
+      itunesContainerReducer(state, {
+        type: itunesContainerTypes.SEARCH_TRACK,
+        trackId
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should ensure that SUCCESS_SEARCH_TRACK updates states accordingly', () => {
+    const trackSearchError = null;
+    const trackId = 1234;
+    const data = { resultsCount: 1, results: [{ songName: 'Song' }] };
+    const trackDetails = { songName: 'Song' };
+    const mockedState = { ...state, trackId };
+    const songsCache = { 1234: data };
+    const expectedResult = {
+      ...state,
+      trackDetails,
+      trackSearchError,
+      trackId,
+      songsCache
+    };
+    const response = { data, trackDetails };
+    expect(
+      itunesContainerReducer(mockedState, {
+        type: itunesContainerTypes.SUCCESS_SEARCH_TRACK,
+        response
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should dispatch FAILURE_SEARCH_TRACK and update states accordingly', () => {
+    const trackDetails = {};
+    const error = translate('something_went_wrong');
+    const expectedResult = { ...state, trackSearchError: error, trackDetails };
+    expect(
+      itunesContainerReducer(state, {
+        type: itunesContainerTypes.FAILURE_SEARCH_TRACK,
+        error
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should ensure that CLEAR_TRACK_DETAILS clears the trackDetails state', () => {
+    const expectedResult = { ...state, trackDetails: {} };
+    expect(
+      itunesContainerReducer(state, {
+        type: itunesContainerTypes.CLEAR_TRACK_DETAILS
+      })
+    ).toEqual(expectedResult);
+  });
 });

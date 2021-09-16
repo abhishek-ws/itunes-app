@@ -5,12 +5,14 @@
   "search_songs_default": "Enter the song name you want to listen right now ...",
   "search_your_songs": "Search your songs ...",
   "search_query": "Search query: {searchTerm}",
-  "no_description": "No Description available",
+  "no_description": "Sorry, We haven't found any description for this song !",
   "matching_songs": "Number of Songs found: {totalCount}",
   "something_went_wrong": "Sorry. Something went wrong! Please try again in sometime.",
   "stories": "Go to Storybook",
   "play-btn": "Play",
   "stop-btn": "Stop",
+  "back-to-home": "Back to home",
   "track-price": "$ {trackPrice}",
+  "no-price": "Price Not available ...",
   "wednesday_solutions": "Wednesday Solutions"
 }

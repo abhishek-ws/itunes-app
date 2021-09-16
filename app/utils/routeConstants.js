@@ -7,5 +7,14 @@ export default {
       containerWidth: 500
     },
     exact: true
+  },
+  trackDetails: {
+    route: '/details/:trackId',
+    props: {
+      width: 50,
+      height: 38,
+      padding: 20
+    },
+    exact: true
   }
 };

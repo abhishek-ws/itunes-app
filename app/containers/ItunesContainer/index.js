@@ -1,4 +1,5 @@
 import React, { useEffect, memo, useState } from 'react';
+import { injectSaga } from 'redux-injectors';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -6,18 +7,17 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import { colors } from '@app/themes';
-import { Card, Skeleton, Input } from 'antd';
-import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
+import styled from 'styled-components';
+import { Card, Skeleton, Input } from 'antd';
+import { colors, media } from '@app/themes';
 import T from '@components/T';
-import { injectSaga } from 'redux-injectors';
-import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
-import { itunesContainerCreators } from './reducer';
-import itunesContainerSaga from './saga';
 import SongCard from '@app/components/SongCard';
 import If from '@components/If';
 import For from '@components/For';
+import { selectItunesContainer, selectGridData, selectSearchError, selectSearchTerm } from './selectors';
+import { itunesContainerCreators } from './reducer';
+import itunesContainerSaga from './saga';
 
 const { Search } = Input;
 
@@ -33,11 +33,11 @@ const CustomCard = styled(Card)`
 const Container = styled.div`
   && {
     display: flex;
+    margin: 0 auto;
     flex-direction: column;
     max-width: ${(props) => props.containerWidth}px;
-    width: 100%;
-    margin: 0 auto;
     padding: ${(props) => props.padding}px;
+    background-color: ${colors.musicGridBg};
   }
 `;
 
@@ -55,8 +55,20 @@ const ResultContainer = styled.div`
 const MusicGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 20;
-  grid-row-gap: 30px;
+  grid-column-gap: 0.5em;
+  grid-row-gap: 3em;
+  place-items: center;
+
+  ${media.lessThan('desktop')`
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 2.2em;
+`}
+  ${media.lessThan('tablet')`
+  grid-template-columns: repeat(1, 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 2.2em;
+`}
 `;
 
 const StyledT = styled(T)`
@@ -106,13 +118,12 @@ export function ItunesContainer({
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
   const handleActionClick = (audioRef) => {
-    if (isEmpty(currentTrack)) {
+    if (currentTrack?.current?.src !== audioRef?.current.src) {
       setCurrentTrack(audioRef);
-    } else {
-      if (currentTrack != audioRef) {
-        currentTrack.current.src = '';
-        setCurrentTrack(audioRef);
-      }
+    }
+    const isPaused = audioRef?.current?.paused;
+    if (!isEmpty(currentTrack) && !isPaused && currentTrack?.current?.src !== audioRef?.current.src) {
+      currentTrack.current.pause();
     }
   };
 
@@ -120,19 +131,19 @@ export function ItunesContainer({
     const songs = get(gridData, 'results', []);
     const totalCount = get(gridData, 'resultCount', 0);
     return (
-      <If condition={!isEmpty(songs) || !loading} otherwise={null}>
+      <If condition={!isEmpty(songs) || !loading}>
         <Skeleton data-testid="skeleton-card" loading={loading} active>
-          <If condition={!isEmpty(searchTerm)} otherwise={null}>
+          <If condition={totalCount !== 0}>
             <StyledT id="search_query" values={{ searchTerm }} />
-          </If>
-          <If condition={totalCount !== 0} otherwise={null}>
             <StyledT id="matching_songs" values={{ totalCount }} />
           </If>
           <For
             data-testid="grid"
             of={songs}
             ParentComponent={MusicGrid}
-            renderItem={(song, index) => <SongCard song={song} key={index} onActionClick={handleActionClick} />}
+            renderItem={(song, index) => (
+              <SongCard data-testid="song-card" song={song} key={index} onActionClick={handleActionClick} />
+            )}
           />
         </Skeleton>
       </If>
@@ -147,9 +158,11 @@ export function ItunesContainer({
       error = 'search_songs_default';
     }
     return (
-      <If condition={!loading && error}>
+      <If condition={!loading && error && isEmpty(gridData)}>
         <CustomCard color={searchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'list_songs' })}>
-          {searchError ? <T text={error} /> : <T id={error} />}
+          <If condition={searchError} otherwise={<T data-testid="default-message" id={error} />}>
+            <T data-testid="itunes-error-message" text={error} />
+          </If>
         </CustomCard>
       </If>
     );
@@ -157,9 +170,9 @@ export function ItunesContainer({
 
   return (
     <>
-      <Container containerWidth={containerWidth} padding={padding}>
-        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxWidth={containerWidth}>
-          <T marginBottom={10} id="search_your_songs" />
+      <Container maxwidth={maxwidth} padding={padding} containerWidth={containerWidth}>
+        <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}>
+          <T id="search_your_songs" />
           <Search
             data-testid="search-bar"
             defaultValue={searchTerm}
@@ -186,7 +199,6 @@ ItunesContainer.propTypes = {
   }),
   searchError: PropTypes.string,
   searchTerm: PropTypes.string,
-  history: PropTypes.object,
   maxwidth: PropTypes.number,
   padding: PropTypes.number,
   containerWidth: PropTypes.number
@@ -204,7 +216,7 @@ const mapStateToProps = createStructuredSelector({
   searchTerm: selectSearchTerm()
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const { searchItunes, clearGridData } = itunesContainerCreators;
   return {
     dispatchSearchSongs: (searchTerm) => dispatch(searchItunes(searchTerm)),

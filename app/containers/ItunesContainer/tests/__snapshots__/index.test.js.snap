@@ -4,10 +4,11 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ItunesContainer__Container-rg528l-1 bSrhH"
+      class="ItunesContainer__Container-rg528l-1 cmmmEB"
     >
       <div
         class="ant-card ant-card-bordered ItunesContainer__CustomCard-rg528l-0 jha-dNF"
+        maxwidth="500"
       >
         <div
           class="ant-card-head"
@@ -26,7 +27,7 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
           class="ant-card-body"
         >
           <p
-            class="T__StyledText-gjlic1-0 demndm"
+            class="T__StyledText-gjlic1-0 kYcyRq"
             data-testid="t"
           >
             Search your songs ...
@@ -101,7 +102,7 @@ exports[`ItunesContainer Tests should render and match to the snapshot 1`] = `
         >
           <p
             class="T__StyledText-gjlic1-0 kYcyRq"
-            data-testid="t"
+            data-testid="default-message"
           >
             Enter the song name you want to listen right now ...
           </p>
