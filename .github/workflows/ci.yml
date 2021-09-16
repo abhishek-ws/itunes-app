@@ -1,6 +1,6 @@
 name: CI Test
 on:
-  pull_request:
+  [pull_request, merge]:
     branches:
       - master
       - feat/trackDetails-itunes
