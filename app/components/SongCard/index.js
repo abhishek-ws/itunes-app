@@ -189,11 +189,15 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
         <Link to={`/details/${trackId}`}>
-          <StyledT trackdetails={trackDetails} text={trackName} />
+          <StyledT trackdetails={trackDetails?.toString()} text={trackName} />
         </Link>
       </HeaderFooter>
 
-      <StyledParagraph data-testid="para-test" trackdetails={trackDetails} shortdescription={song.shortDescription}>
+      <StyledParagraph
+        data-testid="para-test"
+        trackdetails={trackDetails?.toString()}
+        shortdescription={song.shortDescription}
+      >
         <If
           condition={song.shortDescription}
           otherwise={song.longDescription ? song.longDescription : translate('no_description')}
