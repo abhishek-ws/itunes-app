@@ -71,31 +71,6 @@ const MusicGrid = styled.div`
 `}
 `;
 
-// @media (max-width: 1184px) {
-//   grid-column-gap: 0.5em;
-//   grid-row-gap: 2.8em;
-// }
-// @media (max-width: 1046px) {
-//   grid-column-gap: 0.4em;
-//   grid-row-gap: 2.8em;
-// }
-// @media (max-width: 956px) {
-
-// }
-// @media (max-width: 920px) {
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-column-gap: 1em;
-//   grid-row-gap: 2.2em;
-// }
-// @media (max-width: 870px) {
-//   grid-column-gap: 0.8em;
-//   grid-row-gap: 2.2em;
-// }
-// @media (max-width: 634px) {
-//   grid-template-columns: repeat(1, 1fr);
-//   place-items: center;
-// }
-
 const StyledT = styled(T)`
   && {
     font-size: 24;
