@@ -1,8 +1,7 @@
-name: Continuous Deployment
-
+name: Continuous Deployment Integration
 on:
-  push:
   pull_request:
+  push:
     branches:
       - master
 
