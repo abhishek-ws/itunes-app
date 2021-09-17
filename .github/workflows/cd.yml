@@ -1,10 +1,10 @@
-name: ITunes Search CD
+name: Continuous Deployment
 
 on:
   push:
+  pull_request:
     branches:
       - master
-      - feat/ci-cd-testing
 
 jobs:
   BUILD_DEPLOY_ON_S3:
