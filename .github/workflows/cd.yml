@@ -1,6 +1,7 @@
 name: Continuous Deployment Integration
 on:
   pull_request:
+  push:
     branches:
       - master
 jobs:
@@ -11,6 +12,10 @@ jobs:
         node: ['12', '16']
     name: Deployment on Node Version ${{matrix.node}}
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
+        id: get_branch_name
       - name: Checkout Branch
         uses: actions/checkout@v2
       - name: Setting up node
@@ -32,3 +37,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: 'build'
+          DEST_DIR: ${{ steps.get_branch_name.outputs.branch }}
