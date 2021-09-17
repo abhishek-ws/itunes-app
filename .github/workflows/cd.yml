@@ -37,4 +37,4 @@ jobs:
         run: yarn build
 
       - name: Deploy
-        run: aws s3 sync ./build s3://abhishek-ws-itunes-app
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}
