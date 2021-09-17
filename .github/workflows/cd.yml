@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node: ['12', '16']
-      name: Deployment on Node Version ${{matrix.node}}
+    name: Deployment on Node Version ${{matrix.node}}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2
