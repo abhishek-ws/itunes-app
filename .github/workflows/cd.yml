@@ -12,10 +12,6 @@ jobs:
         node: ['14']
     name: Deployment on Node Version ${{ matrix.node }}
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo ::set-output name=branch::${{ github.event.pull_request.head.ref }}
-        id: get_branch_name
       - name: Checkout Branch
         uses: actions/checkout@v2
       - name: Setting up node
