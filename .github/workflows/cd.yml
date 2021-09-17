@@ -1,42 +1,40 @@
-name: Continuous Deployment Integration
+name: ITunes Search CD
+
 on:
-  pull_request:
   push:
     branches:
       - master
+      - feat/ci-cd-testing
+
 jobs:
-  Build_Deploy_ON_S3:
+  BUILD_DEPLOY_ON_S3:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node: ['14']
-    env:
-      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-      PATHS: '/*'
-      SOURCE_DIR: './build/'
-    name: Deployment on Node Version ${{ matrix.node }}
+        node-version: [14.x]
+
     steps:
-      - name: Checkout Branch
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: Extract branch name
-        shell: bash
-        run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
-        id: extract_branch
-      - name: Setting up node
+
+      - name: Deploying on ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
-          cache: yarn
-      - name: Installing dependencies
-        run: yarn
-      - name: Build app
-        run: yarn build
-      - name: Deploy to S3
-        uses: jakejarvis/s3-sync-action@v0.5.0
+          node-version: ${{ matrix.node-version }}
+
+      - name: Configuring AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          args: --acl public-read --follow-symlinks
-        env:
-          DEST_DIR: ${{ steps.extract_branch.outputs.branch }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Deploy
+        run: aws s3 sync ./build s3://abhishek-ws-itunes-app
