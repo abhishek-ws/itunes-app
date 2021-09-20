@@ -5,6 +5,8 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const OfflinePlugin = require('@lcdp/offline-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const { getBasePublicPath, isUAT } = require('../utils');
+const publicPath = getBasePublicPath();
 
 module.exports = require('./webpack.config.base')({
   mode: 'production',
@@ -78,8 +80,8 @@ module.exports = require('./webpack.config.base')({
     // Put it in the end to capture all the HtmlWebpackPlugin's
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
     new OfflinePlugin({
-      relativePaths: false,
-      publicPath: '/',
+      relativePaths: isUAT(),
+      publicPath,
       appShell: '/',
 
       // No need to cache .htaccess. See http://mxs.is/googmp,
