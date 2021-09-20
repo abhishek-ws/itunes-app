@@ -1,6 +1,5 @@
 name: Continuous Deployment Integration
 on:
-  pull_request:
   push:
     branches:
       - master
@@ -22,6 +21,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Get branch name
+        id: vars
+        run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
+
       - name: Configuring AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -36,4 +39,4 @@ jobs:
         run: yarn build
 
       - name: Deploy
-        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}/${{steps.vars.outputs.branch}}/
