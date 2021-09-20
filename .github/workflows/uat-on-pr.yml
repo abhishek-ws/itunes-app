@@ -1,10 +1,10 @@
-name: User Acceptance Testing - Itunes App
+name: CD UAT
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master]
 jobs:
-  Build_Deploy_On_S3:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     strategy:
       matrix:
