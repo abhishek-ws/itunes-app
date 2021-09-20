@@ -1,0 +1,29 @@
+name: CI Test
+on:
+  pull_request:
+    branches:
+      - master
+      - feat/trackDetails-itunes
+jobs:
+  Test-Multiple-node-envs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['12']
+    name: Running on node version ${{ matrix.node }}x
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn
+      - name: Lint Code
+        run: yarn lint
+      - name: Test App
+        run: yarn test
+      - name: Build App
+        run: yarn build
