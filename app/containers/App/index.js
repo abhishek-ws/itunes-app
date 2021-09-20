@@ -20,17 +20,26 @@ import GlobalStyle from '@app/global-styles';
 import { colors } from '@themes';
 import Header from '@components/Header';
 import For from '@components/For';
+import routeConstants from '@app/utils/routeConstants';
 
 const theme = {
   fg: colors.primary,
   bg: colors.secondary
 };
 
-export function App({ location }) {
+export function App({ history, location }) {
   return (
     <ThemeProvider theme={theme}>
       <Header />
       <Layout.Content>
+        <button
+          style={{ margin: '20px' }}
+          onClick={() => {
+            history.push(`${routeConstants.trackDetails.routeDetails}408082820`);
+          }}
+        >
+          Go to the new route
+        </button>
         <For
           ParentComponent={(props) => <Switch {...props} />}
           of={map(Object.keys(routeConfig))}
@@ -58,6 +67,7 @@ export function App({ location }) {
   );
 }
 App.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
+  history: PropTypes.object
 };
 export default compose(withRouter)(App);
