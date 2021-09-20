@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import If from '@components/If';
 import { T } from '@components/T';
 import media from '@app/themes/media';
+import routeConstants from '@utils/routeConstants';
 
 const { Paragraph } = Typography;
 
@@ -188,7 +189,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
     <Container width={width} height={height} data-testid="song-card">
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
-        <Link to={`/details/${trackId}`}>
+        <Link to={`${routeConstants.trackDetails.routeDetails}${trackId}`}>
           <StyledT trackdetails={trackDetails?.toString()} text={trackName} />
         </Link>
       </HeaderFooter>

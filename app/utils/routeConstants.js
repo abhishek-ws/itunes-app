@@ -9,6 +9,7 @@ export default {
     exact: true
   },
   trackDetails: {
+    routeDetails: '/details/',
     route: '/details/:trackId',
     props: {
       width: 50,
