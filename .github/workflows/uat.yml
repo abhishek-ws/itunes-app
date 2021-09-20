@@ -1,46 +1,43 @@
-name: User Acceptance Test
+name: Continuous Deployment Integration
 on:
   pull_request:
+  push:
     branches:
       - master
+
 jobs:
-  Build_Deploy:
+  BUILD_DEPLOY_ON_S3:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x]
-
-    env:
-      SOURCE_DIR: './build/'
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      PATHS: '/*'
-      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        node-version: [14.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Deploying on Node ${{matrix.node-version}}
+      - name: Deploying on ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{matrix.node-version}}
+          node-version: ${{ matrix.node-version }}
 
       - name: Get branch name
         id: vars
         run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
 
+      - name: Configuring AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Install dependencies
         run: yarn
 
       - name: Build
-        run: yarn build:uat
+        run: yarn build
 
-      - name: AWS Deploy
-        uses: jakejarvis/s3-sync-action@v0.5.0
-        with:
-          args: --acl public-read --follow-symlinks
-
-        env:
-          DEST_DIR: ${{steps.vars.outputs.branch}}
+      - name: Deploy
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}/${{steps.vars.outputs.branch}}/

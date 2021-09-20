@@ -1,6 +1,5 @@
 name: Continuous Deployment Integration
 on:
-  pull_request:
   push:
     branches:
       - master
@@ -40,4 +39,4 @@ jobs:
         run: yarn build
 
       - name: Deploy
-        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_PROD }}/${{steps.vars.outputs.branch}}/
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_PROD }}/master/
