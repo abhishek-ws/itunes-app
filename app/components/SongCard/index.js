@@ -31,7 +31,6 @@ const Container = styled(Card)`
     &::-webkit-scrollbar {
       display: none;
     }
-
     ${media.lessThan('desktop')`
     width: ${(props) => (props.width ? 32 : 22)}em;
     height: ${(props) => props.height ?? 34}em;;
