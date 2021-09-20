@@ -1,11 +1,12 @@
-name: Continuous Deployment Integration
+name: UAT Tests
+
 on:
   pull_request:
     branches:
       - master
 
 jobs:
-  UAT_Test:
+  build-deploy-UAT:
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,21 +17,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Deploying on ${{ matrix.node-version }}
+      - name: Use Node.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Get branch name
-        id: vars
+      - name: Extract branch name
+        shell: bash
         run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
+        id: extract_branch
 
-      - name: Configuring AWS credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ap-south-1
 
       - name: Install dependencies
         run: yarn
@@ -39,4 +41,4 @@ jobs:
         run: yarn build:uat
 
       - name: Deploy
-        run: aws s3 sync ./build/ s3://${{ secrets.AWS_S3_BUCKET }}/${{steps.vars.outputs.branch}}/
+        run: aws s3 sync ./build s3://itunessearch-demo/${{steps.extract_branch.outputs.branch}}
