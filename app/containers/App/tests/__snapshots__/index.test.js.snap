@@ -21,6 +21,12 @@ exports[`<App /> container tests should render and match the snapshot 1`] = `
   </header>
   <main
     class="ant-layout-content"
-  />
+  >
+    <button
+      style="margin: 20px;"
+    >
+      Go to the new route
+    </button>
+  </main>
 </div>
 `;
