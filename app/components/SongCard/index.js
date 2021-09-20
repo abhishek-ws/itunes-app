@@ -7,11 +7,11 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { Card, Typography, Button } from 'antd';
 import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
 import { colors } from '@app/themes';
 import { translate } from '@components/IntlGlobalProvider';
-import { Link } from 'react-router-dom';
 import If from '@components/If';
 import { T } from '@components/T';
 import media from '@app/themes/media';
@@ -170,6 +170,7 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
 
   const songElement = useRef(null);
   const [play, setPlay] = useState(false);
+  const history = useHistory();
 
   const isPlaying = () => (songElement.current ? !songElement.current.paused : false);
 
@@ -188,9 +189,11 @@ export function SongCard({ song, trackDetails, width, height, onActionClick }) {
     <Container width={width} height={height} data-testid="song-card">
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
-        <Link to={`/details/${trackId}`}>
-          <StyledT trackdetails={trackDetails?.toString()} text={trackName} />
-        </Link>
+        <StyledT
+          onClick={() => history.push(`/details/${trackId}`)}
+          trackdetails={trackDetails?.toString()}
+          text={trackName}
+        />
       </HeaderFooter>
 
       <StyledParagraph

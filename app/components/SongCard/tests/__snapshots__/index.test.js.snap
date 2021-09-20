@@ -17,16 +17,12 @@ exports[`<SongCard/> tests should render and match the snapshot 1`] = `
             class="SongCard__StyledImage-sc-163fh4j-7 egedQz"
             src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
           />
-          <a
-            href="/details/1234"
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 Yqokq"
+            data-testid="t"
           >
-            <p
-              class="T__StyledText-gjlic1-0 kYcyRq SongCard__StyledT-sc-163fh4j-3 Yqokq"
-              data-testid="t"
-            >
-              Track
-            </p>
-          </a>
+            Track
+          </p>
         </div>
         <div
           class="ant-typography SongCard__StyledParagraph-sc-163fh4j-5 khxwmq"
