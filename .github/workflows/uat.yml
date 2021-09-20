@@ -36,7 +36,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build
+        run: yarn build:uat
 
       - name: Deploy
         run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}/${{steps.vars.outputs.branch}}/
