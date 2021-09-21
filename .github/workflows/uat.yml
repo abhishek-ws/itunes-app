@@ -38,7 +38,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build:uat
+        run: export BRANCH_NAME=${{ steps.branch.outputs.branch }} && yarn build:uat
 
       - name: Deploy
         run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}/${{ steps.branch.outputs.branch }}

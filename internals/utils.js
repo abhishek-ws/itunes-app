@@ -1,8 +1,13 @@
 function isUAT() {
   return process.env.ENVIRONMENT_NAME === 'uat';
 }
-function getBasePublicPath() {
-  return isUAT() ? './' : '/';
+
+function getBranchName() {
+  return process.env.BRANCH_NAME ? `/${process.env.BRANCH_NAME}/` : './';
 }
 
-module.exports = { getBasePublicPath, isUAT };
+function getBasePublicPath() {
+  return isUAT() ? getBranchName() : '/';
+}
+
+module.exports = { getBasePublicPath, isUAT, getBranchName };
